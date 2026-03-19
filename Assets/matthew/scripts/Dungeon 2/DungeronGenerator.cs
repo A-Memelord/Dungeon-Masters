@@ -1,32 +1,90 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DungeronGenerator : MonoBehaviour
 {
-    
     public GameObject[] rooms;
-
     public GameObject roomParent;
 
+    public Bounds dungeon;
+    public int roomCount;
+    public float boundsExtra;
 
-    public void SpawnRooms()
+    private List<Bounds> _allBounds = new();
+
+    GameObject GetRandomRoom()
     {
-        int spawnPointX = Random.Range(-50, 50);
-        int spawnPointY = Random.Range(50, 100);
-        int spawnPointZ = Random.Range(-50, 50);
+        int randomIndex = Random.Range(0, rooms.Length);
 
-        Vector3 spawnPosition = new Vector3(spawnPointX, 0, spawnPointZ);
-
-        CreateChildPrefabInstance(rooms, roomParent, spawnPosition);
+        return rooms[randomIndex];
     }
 
-    void CreateChildPrefabInstance(GameObject[] rooms, GameObject parent, Vector3 spawnPosition)
+    Quaternion GetRandomRotation()
     {
+        int[] rotations = new int[] { 0, 90, 180, 270 };
+        int rotation = rotations[Random.Range(0, rotations.Length)];
 
-        int randomIndex = Random.Range(0, rooms.Length); 
+        return Quaternion.Euler(0, rotation, 0);
+    }
 
+    Vector3 GetRandomPosition(Vector3 size)
+    {
+        float spawnPointX = Random.Range(dungeon.min.x, dungeon.max.x);
+        float spawnPointY = Random.Range(dungeon.min.y, dungeon.max.y);
+        float spawnPointZ = Random.Range(dungeon.min.z, dungeon.max.z);
+        Vector3 position = new(spawnPointX, spawnPointY, spawnPointZ);
 
+        Bounds oldBounds = new(position, size);
+        oldBounds.Expand(boundsExtra);
 
-        var newGameObject = Instantiate(rooms[randomIndex], spawnPosition, Quaternion.identity);
-        newGameObject.transform.parent = parent.transform;
+        if (_allBounds.Any(room => room.Intersects(oldBounds)))
+        {
+            return GetRandomPosition(size);
+        }
+        else
+        {
+            return position;
+        }
+    }
+
+    public void SpawnRoom()
+    {
+        GameObject newRoom = Instantiate(GetRandomRoom(), Vector3.zero, GetRandomRotation());
+        newRoom.transform.SetParent(roomParent.transform);
+
+        if (newRoom.TryGetComponent(out BoxCollider box))
+        {
+            Vector3 spawnPoint = GetRandomPosition(box.bounds.size);
+            newRoom.transform.position = spawnPoint;
+
+            _allBounds.Add(box.bounds);
+        }
+    }
+
+    public void SpawnAllRooms()
+    {
+        ClearRooms();
+
+        for (int i = 0; i < roomCount; i++)
+        {
+            SpawnRoom();
+        }
+    }
+
+    public void ClearRooms()
+    {
+        int childedRooms = _allBounds.Count;
+        _allBounds.Clear();
+        
+        for (int i = 0; i < childedRooms; i++)
+        {
+            DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(dungeon.center, dungeon.size);
     }
 }
