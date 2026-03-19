@@ -271,9 +271,9 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
 
-        if (maxYSpeed != 0 && rb.velocity.y > maxYSpeed)
+        if (maxYSpeed != 0 && rb.linearVelocity.y > maxYSpeed)
         {
-            rb.velocity = new Vector3(rb.velocity.x, maxYSpeed, rb.velocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYSpeed, rb.linearVelocity.z);
         }
 
     }
