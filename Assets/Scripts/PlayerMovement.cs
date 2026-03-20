@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float slideSpeed;
     public float swingSpeed;
     public float wallrunSpeed;
+    public float dashSpeed;
+    public float maxYSpeed;
 
     private float desiredMoveSpeed;
     private float lastDesiredMoveSpeed;
@@ -62,9 +64,11 @@ public class PlayerMovement : MonoBehaviour
         sprinting,
         sliding,
         swinging,
+        dashing,
         air
     }
 
+    public bool dashing;
     public bool sliding;
     public bool activeGrapple;
     public bool swinging;
@@ -90,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         SpeedControl();
         StateHandler();
 
-        if(grounded && !activeGrapple || grounded && !swinging)
+        if(grounded && !activeGrapple || grounded && !swinging || grounded && !dashing)
         {
             rb.linearDamping = groundDrag;
         }
@@ -117,7 +121,13 @@ public class PlayerMovement : MonoBehaviour
     //lerp
     private void StateHandler()
     {
-        if (wallrunning)
+        if (dashing)
+        {
+            state = MovementState.dashing;
+            desiredMoveSpeed = dashSpeed;
+        }
+
+        else if (wallrunning)
         {
             state = MovementState.wallrunning;
             desiredMoveSpeed = wallrunSpeed;
@@ -259,6 +269,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
+        }
+
+        if (maxYSpeed != 0 && rb.linearVelocity.y > maxYSpeed)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, maxYSpeed, rb.linearVelocity.z);
         }
 
     }
