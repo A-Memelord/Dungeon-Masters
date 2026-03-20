@@ -10,6 +10,8 @@ public class DungeronGenerator : MonoBehaviour
     public Bounds dungeon;
     public int roomCount;
     public float boundsExtra;
+    int maxPositionCheckCount = 1500;
+    bool positionCheckFailed = false;
 
     private List<Bounds> _allBounds = new();
 
@@ -38,9 +40,20 @@ public class DungeronGenerator : MonoBehaviour
         Bounds oldBounds = new(position, size);
         oldBounds.Expand(boundsExtra);
 
+        positionCheckFailed = false;
+
         if (_allBounds.Any(room => room.Intersects(oldBounds)))
         {
-            return GetRandomPosition(size);
+            maxPositionCheckCount--;
+            if (maxPositionCheckCount <= 536)
+            {
+                return position;
+            }
+            else
+            {
+                return GetRandomPosition(size);  
+            }
+
         }
         else
         {
@@ -58,7 +71,19 @@ public class DungeronGenerator : MonoBehaviour
             Vector3 spawnPoint = GetRandomPosition(box.bounds.size);
             newRoom.transform.position = spawnPoint;
 
-            _allBounds.Add(box.bounds);
+            if (maxPositionCheckCount <= 536)
+            {
+                DestroyImmediate(newRoom);
+                maxPositionCheckCount = 1500;
+            }
+            else
+            {
+                maxPositionCheckCount = 1500;
+                _allBounds.Add(box.bounds);
+            }
+
+
+            
         }
     }
 

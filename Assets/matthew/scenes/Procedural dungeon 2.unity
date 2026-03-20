@@ -313,7 +313,7 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 90, y: 0, z: 90}
   roomCount: 20
-  boundsExtra: 5
+  boundsExtra: 10
 --- !u!4 &501518306
 Transform:
   m_ObjectHideFlags: 0
