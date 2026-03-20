@@ -308,12 +308,14 @@ MonoBehaviour:
   rooms:
   - {fileID: 1385895054010542438, guid: ba56a3a51856ce840be0a605d16952d1, type: 3}
   - {fileID: 5175195564574190378, guid: f365df01144eb894996c69949ee56c7b, type: 3}
+  - {fileID: 2424467199165875391, guid: f3683c29bcfd29049b6eadad5a0b66c6, type: 3}
   roomParent: {fileID: 26354201}
   dungeon:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 90, y: 0, z: 90}
+    m_Extent: {x: 100, y: 0, z: 100}
   roomCount: 20
   boundsExtra: 10
+  stressTestDungeonGen: 0
 --- !u!4 &501518306
 Transform:
   m_ObjectHideFlags: 0
