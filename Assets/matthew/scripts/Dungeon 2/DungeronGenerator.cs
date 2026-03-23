@@ -97,10 +97,12 @@ public class DungeronGenerator : MonoBehaviour
     public void SpawnAllRooms()
     {
         ClearRooms();
-
+        Debug.Log("RoomSpawnCounter");
+        
         for (int i = 0; i < roomCount; i++)
         {
             SpawnRoom();
+            
         }
     }
 
