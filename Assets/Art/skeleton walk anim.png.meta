@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e2402c7b42da6f24ea460c9dcb369c2a
+guid: bc9803e204704264b81f7b83374c8ef0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,11 +123,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skelly walk_0
+      name: skeleton walk anim_0
       rect:
         serializedVersion: 2
         x: 42
-        y: 144
+        y: 272
         width: 44
         height: 98
       alignment: 0
@@ -138,17 +138,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d28bc4d1f5c56ce4f9c40bf670820dd9
-      internalID: -1861316982
+      spriteID: 7a2043870ae351b45b443aa005cec6e2
+      internalID: -1277017358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skelly walk_1
+      name: skeleton walk anim_1
       rect:
         serializedVersion: 2
         x: 170
+        y: 269
+        width: 44
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e60518092aaf62c41b8c55468a7e67a9
+      internalID: -1257668807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton walk anim_2
+      rect:
+        serializedVersion: 2
+        x: 42
         y: 141
         width: 44
         height: 101
@@ -160,18 +182,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 86c2c8003649bf94c991539a982f3563
-      internalID: -1902635106
+      spriteID: b2d0a0376d077d64681c39f4534a1ba4
+      internalID: -1609502350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skelly walk_2
+      name: skeleton walk anim_3
       rect:
         serializedVersion: 2
-        x: 42
-        y: 16
+        x: 170
+        y: 144
         width: 44
         height: 98
       alignment: 0
@@ -182,17 +204,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3072e18d1ec3d9f4b8c1b554ce4a0aca
-      internalID: -2005258707
+      spriteID: c00ff0fba0e056d438b20a840378e2ae
+      internalID: 433866953
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skelly walk_3
+      name: skeleton walk anim_4
       rect:
         serializedVersion: 2
-        x: 170
+        x: 42
         y: 13
         width: 44
         height: 101
@@ -204,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d22a14d61ac97b44abd61c61bc058f92
-      internalID: -530274175
+      spriteID: 3d2ae600bf719784d87631586a5faec9
+      internalID: -1365268293
       vertices: []
       indices: 
       edges: []
@@ -214,7 +236,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 92d8d431f7c631a4ea140e6328d03bdc
+    spriteID: 14b8832c0439df94ebf69fb7c60b349a
     internalID: 0
     vertices: []
     indices: 
@@ -224,10 +246,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Skelly walk_0: -1861316982
-      Skelly walk_1: -1902635106
-      Skelly walk_2: -2005258707
-      Skelly walk_3: -530274175
+      skeleton walk anim_0: -1277017358
+      skeleton walk anim_1: -1257668807
+      skeleton walk anim_2: -1609502350
+      skeleton walk anim_3: 433866953
+      skeleton walk anim_4: -1365268293
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
