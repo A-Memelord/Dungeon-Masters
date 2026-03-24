@@ -8,9 +8,6 @@ public class Pickup : MonoBehaviour
     private float hoverSpeed = 0.5f;
     private float oldY;
 
-    // Add a field to hold the current order
-    public List<GameObject> currentOrder = new List<GameObject>(3);
-
     private void Awake()
     {
         oldY = transform.position.y;
@@ -22,19 +19,5 @@ public class Pickup : MonoBehaviour
 
         float newY = Mathf.Sin(Time.time * hoverSpeed) * 0.5f;
         this.transform.position = new Vector3(transform.position.x, oldY + newY, transform.position.z);
-    }
-    
-    private void OnTriggerEnter(UnityEngine.Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            GameObject.SetActive(false);
-        }
-   
-        GameObject card = GameObject.Find("WindCard, FlameCard, SlashCard");
-        if (card != null)
-        {
-            currentOrder.Add(card);
-        }
     }
 }
