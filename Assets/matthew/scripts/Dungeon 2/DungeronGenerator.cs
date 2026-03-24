@@ -11,7 +11,7 @@ public class DungeronGenerator : MonoBehaviour
     public int roomCount;
     public float boundsExtra;
     int maxPositionCheckCount = 1500;
-    bool positionCheckFailed = false;
+    public bool stressTestDungeonGen;
 
     private List<Bounds> _allBounds = new();
 
@@ -40,7 +40,6 @@ public class DungeronGenerator : MonoBehaviour
         Bounds oldBounds = new(position, size);
         oldBounds.Expand(boundsExtra);
 
-        positionCheckFailed = false;
 
         if (_allBounds.Any(room => room.Intersects(oldBounds)))
         {
@@ -58,6 +57,14 @@ public class DungeronGenerator : MonoBehaviour
         else
         {
             return position;
+        }
+    }
+
+    void Update()
+    {
+        if (stressTestDungeonGen == true)
+        {
+            SpawnAllRooms();
         }
     }
 
@@ -90,10 +97,12 @@ public class DungeronGenerator : MonoBehaviour
     public void SpawnAllRooms()
     {
         ClearRooms();
-
+        Debug.Log("RoomSpawnCounter");
+        
         for (int i = 0; i < roomCount; i++)
         {
             SpawnRoom();
+            
         }
     }
 
