@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DungeronGenerator1 : MonoBehaviour
 {
+    public GameObject startRoom;
+    public GameObject endRoom;
     public GameObject[] rooms;
     public GameObject roomParent;
 
@@ -62,6 +64,37 @@ public class DungeronGenerator1 : MonoBehaviour
         }
     }
 
+    public void SpawnStartEndAndShopRooms()
+    {
+        if (roomsIntersecting == true)
+        {
+            ClearRooms();
+            roomsIntersecting = false;
+        }
+
+        GameObject startRoom_ = Instantiate(startRoom, Vector3.zero, GetRandomRotation());
+        startRoom_.transform.SetParent(roomParent.transform);
+        //GameObject shop_ = Instantiate(shop, Vector3.zero, GetRandomRotation());
+        //shop_.transform.SetParent(roomParent.transform);
+        GameObject endRoom_ = Instantiate(endRoom, Vector3.zero, GetRandomRotation());
+        endRoom_.transform.SetParent(roomParent.transform);
+
+        if (startRoom_.TryGetComponent(out BoxCollider startBox))
+        {
+            Vector3 spawnPoint = GetRandomPosition(startBox.bounds.size);
+            startRoom_.transform.position = spawnPoint;
+
+            _allBounds.Add(startBox.bounds);
+        }
+        if (endRoom_.TryGetComponent(out BoxCollider endBox))
+        {
+            Vector3 spawnPoint = GetRandomPosition(endBox.bounds.size);
+            endRoom_.transform.position = spawnPoint;
+
+            _allBounds.Add(endBox.bounds);
+        }
+    }
+
     public void SpawnRoom()
     {
         GameObject newRoom = Instantiate(GetRandomRoom(), Vector3.zero, GetRandomRotation());
@@ -88,7 +121,8 @@ public class DungeronGenerator1 : MonoBehaviour
     {
         ClearRooms();
         Debug.Log("RoomSpawnCounter");
-        
+
+        SpawnStartEndAndShopRooms();
         for (int i = 0; i < roomCount; i++)
         {
             SpawnRoom();
