@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 8624717273031286325}
   m_Layer: 0
   m_Name: Start Room
-  m_TagString: Untagged
+  m_TagString: StartRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,7 +145,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 35, y: 8, z: 26}
+  m_Size: {x: 39, y: 8, z: 30}
   m_Center: {x: 5, y: 4, z: -0.75}
 --- !u!1 &7943159947158132823
 GameObject:

@@ -12,11 +12,6 @@ public class DungeronGeneratorEditor1 : Editor
 
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Generate 1"))
-        {
-            dunGen.SpawnRoom();
-        }
-
         if (GUILayout.Button("Generate all"))
         {
             dunGen.SpawnAllRooms();
