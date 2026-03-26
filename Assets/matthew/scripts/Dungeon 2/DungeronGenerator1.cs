@@ -21,9 +21,11 @@ public class DungeronGenerator1 : MonoBehaviour
     public GameObject player;
     public GameObject roomParent;
 
+    public float gridSize = 1;
     public float boundsExtra;
     public bool stressTestDungeonGen;
     bool roomsIntersecting;
+
 
     private List<Bounds> _allBounds = new();
 
@@ -53,8 +55,15 @@ public class DungeronGenerator1 : MonoBehaviour
         oldBounds.Expand(boundsExtra);
         if (_allBounds.Any(room => room.Intersects(oldBounds)) || roomsIntersecting == true)
         {
-            roomsIntersecting = true;
-            return position;
+            if (region.name == "Shop Room")
+            {
+                return GetRandomPosition(region, size);
+            }
+            else
+            {
+                roomsIntersecting = true;
+                return position;
+            } 
         }
         else
         {
@@ -84,8 +93,8 @@ public class DungeronGenerator1 : MonoBehaviour
             newRoom.transform.position = spawnPoint;
             if(roomsIntersecting == true)
             {
-                DestroyImmediate(newRoom);
-                roomsIntersecting = false;
+                    DestroyImmediate(newRoom);
+                    roomsIntersecting = false;
             }
             else
             {

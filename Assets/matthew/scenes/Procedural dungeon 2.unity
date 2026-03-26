@@ -180,7 +180,7 @@ Transform:
   m_GameObject: {fileID: 194741213}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.13513, y: 1.1, z: 88.83689}
+  m_LocalPosition: {x: 30.841713, y: 1.1, z: 36.383835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -397,22 +397,29 @@ MonoBehaviour:
   regions:
   - name: Start Room
     bounds:
-      m_Center: {x: 75, y: 0, z: 75}
-      m_Extent: {x: 25, y: 0, z: 25}
+      m_Center: {x: 37.5, y: 0, z: 37.5}
+      m_Extent: {x: 12.5, y: 0, z: 12.5}
     rooms:
     - {fileID: 7078009237620402110, guid: 18c81762014707046881e0b9a896fa95, type: 3}
     roomCount: 1
   - name: End Room
     bounds:
-      m_Center: {x: -75, y: 0, z: -75}
-      m_Extent: {x: 25, y: 0, z: 25}
+      m_Center: {x: -37.5, y: 0, z: -37.5}
+      m_Extent: {x: 12.5, y: 0, z: 12.5}
     rooms:
     - {fileID: 7217641876843942579, guid: ab61d214b780e324a8b9800f5decc3d5, type: 3}
+    roomCount: 1
+  - name: Shop Room
+    bounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 50, y: 0, z: 50}
+    rooms:
+    - {fileID: 8848431752028504901, guid: 7fad2f437c7325b439f766faa0dd0e7f, type: 3}
     roomCount: 1
   - name: Dungeon
     bounds:
       m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 100, y: 0, z: 100}
+      m_Extent: {x: 50, y: 0, z: 50}
     rooms:
     - {fileID: 1385895054010542438, guid: ba56a3a51856ce840be0a605d16952d1, type: 3}
     - {fileID: 1452092567713120154, guid: 889e560c6feb50448932bccd522232cf, type: 3}
@@ -420,9 +427,11 @@ MonoBehaviour:
     - {fileID: 5175195564574190378, guid: f365df01144eb894996c69949ee56c7b, type: 3}
     - {fileID: 3845231213598126088, guid: b4e6335b460fbec419e2c789dab7bc93, type: 3}
     - {fileID: 3135172075807581787, guid: 9cd3b6351d876a44681094487a978403, type: 3}
-    roomCount: 200
+    - {fileID: 5404105776003734186, guid: 2f9df0ba9fed1f646b7038068018a1b2, type: 3}
+    roomCount: 300
   player: {fileID: 194741213}
   roomParent: {fileID: 26354201}
+  gridSize: 1
   boundsExtra: 10
   stressTestDungeonGen: 0
 --- !u!1 &780336165
