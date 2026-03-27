@@ -46,9 +46,10 @@ public class DungeronGenerator1 : MonoBehaviour
 
     Vector3 GetRandomPosition(Region region, Vector3 size)
     {
-        float spawnPointX = Random.Range(region.bounds.min.x, region.bounds.max.x);
-        float spawnPointY = Random.Range(region.bounds.min.y, region.bounds.max.y);
-        float spawnPointZ = Random.Range(region.bounds.min.z, region.bounds.max.z);
+        float spawnPointX = Mathf.RoundToInt(Random.Range(region.bounds.min.x, region.bounds.max.x) / gridSize) * gridSize;
+        float spawnPointY = Mathf.RoundToInt(Random.Range(region.bounds.min.y, region.bounds.max.y) / gridSize) * gridSize;
+        float spawnPointZ = Mathf.RoundToInt(Random.Range(region.bounds.min.z, region.bounds.max.z) / gridSize) * gridSize;
+
         Vector3 position = new(spawnPointX, spawnPointY, spawnPointZ);
 
         Bounds oldBounds = new(position, size);
