@@ -126,12 +126,12 @@ TextureImporter:
       name: firev4_0
       rect:
         serializedVersion: 2
-        x: 37
+        x: 29
         y: 34
-        width: 25
+        width: 42
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -148,12 +148,12 @@ TextureImporter:
       name: firev4_1
       rect:
         serializedVersion: 2
-        x: 137
+        x: 129
         y: 34
-        width: 25
+        width: 42
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,12 +170,12 @@ TextureImporter:
       name: firev4_2
       rect:
         serializedVersion: 2
-        x: 237
+        x: 229
         y: 34
-        width: 25
+        width: 42
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -192,12 +192,12 @@ TextureImporter:
       name: firev4_3
       rect:
         serializedVersion: 2
-        x: 337
+        x: 329
         y: 34
-        width: 25
+        width: 42
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -214,12 +214,12 @@ TextureImporter:
       name: firev4_4
       rect:
         serializedVersion: 2
-        x: 437
+        x: 429
         y: 34
-        width: 25
+        width: 42
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -236,12 +236,12 @@ TextureImporter:
       name: firev4_5
       rect:
         serializedVersion: 2
-        x: 537
+        x: 529
         y: 34
-        width: 25
+        width: 42
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

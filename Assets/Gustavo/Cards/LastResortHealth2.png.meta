@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e6a9e9a28e3bfc84cbe30f517add2d59
+guid: eec770b569928c1408ff09a67698550b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,11 +123,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: windCardPlaceHolder_0
+      name: LastResortHealth2_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 45
+        x: 28
+        y: 34
         width: 42
         height: 39
       alignment: 0
@@ -138,18 +138,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b6973102b11fe8e41bcb6a6e081cbff7
-      internalID: -1610675503
+      spriteID: 42b885cff08c57047be527e8a80694fb
+      internalID: -552646270
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: windCardPlaceHolder_1
+      name: LastResortHealth2_1
       rect:
         serializedVersion: 2
-        x: 129
-        y: 45
+        x: 128
+        y: 34
         width: 42
         height: 39
       alignment: 0
@@ -160,18 +160,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8f3e89b0ae2a544a926b2de2df29274
-      internalID: -186958106
+      spriteID: f6129891c8d2741488abb5f1d4825827
+      internalID: -1312880350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: windCardPlaceHolder_2
+      name: LastResortHealth2_2
       rect:
         serializedVersion: 2
-        x: 229
-        y: 45
+        x: 228
+        y: 34
         width: 42
         height: 39
       alignment: 0
@@ -182,8 +182,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc2f212557d28804388016aa26748e1a
-      internalID: 1802353339
+      spriteID: be656e1fed9e87545830b9aacf9bf589
+      internalID: -1440044188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LastResortHealth2_3
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 044676c9d9c98b046b597bce7dfdc617
+      internalID: 2051864724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LastResortHealth2_4
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3765b952cc07674a9f46fd60b856267
+      internalID: 120927217
       vertices: []
       indices: 
       edges: []
@@ -192,7 +236,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c880fca7a10bb734388b80a320d1cc02
+    spriteID: e47ceb9c517b1ca4e828756860e6049b
     internalID: 0
     vertices: []
     indices: 
@@ -202,9 +246,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      windCardPlaceHolder_0: -1610675503
-      windCardPlaceHolder_1: -186958106
-      windCardPlaceHolder_2: 1802353339
+      LastResortHealth2_0: -552646270
+      LastResortHealth2_1: -1312880350
+      LastResortHealth2_2: -1440044188
+      LastResortHealth2_3: 2051864724
+      LastResortHealth2_4: 120927217
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

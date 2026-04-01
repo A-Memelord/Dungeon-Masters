@@ -24,29 +24,33 @@ public class WorldCard : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Destroy(gameObject);
-
-            GameObject card = GameObject.Find("Canvas/Cards");
-            if (card != null)
-            {
-                UiCard uiCard = new GameObject("Card").AddComponent<UiCard>();
-
-                uiCard.card = this.card;
-                uiCard.transform.SetParent(card.transform);
-
-                if (uiCard.TryGetComponent(out RectTransform rectTransform))
-                {
-                    rectTransform.anchoredPosition3D = Vector3.zero;
-                    rectTransform.localScale = Vector3.one;
-                    rectTransform.localRotation = Quaternion.identity;
-                }
-
-                if(uiCard.TryGetComponent(out Image image))
-                {
-                    image.preserveAspect = true;
-                }
-
-                uiCard.Assign();
-            }
+            AddCardToInventory(this.card);
         }
+    }
+
+    public static void AddCardToInventory(Card card)
+    {
+        GameObject canvas = GameObject.Find("Canvas/Cards");
+        if (canvas == null)
+            return;
+        
+        UiCard uiCard = new GameObject("Card").AddComponent<UiCard>();
+
+        uiCard.card = card;
+        uiCard.transform.SetParent(canvas.transform);
+
+        if (uiCard.TryGetComponent(out RectTransform rectTransform))
+        {
+            rectTransform.anchoredPosition3D = Vector3.zero;
+            rectTransform.localScale = Vector3.one;
+            rectTransform.localRotation = Quaternion.identity;
+        }
+
+        if (uiCard.TryGetComponent(out Image image))
+        {
+            image.preserveAspect = true;
+        }
+
+        uiCard.Assign();
     }
 }

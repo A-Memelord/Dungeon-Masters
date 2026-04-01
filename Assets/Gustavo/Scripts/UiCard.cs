@@ -16,6 +16,11 @@ public class UiCard : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        GetComponent<Animator>().SetFloat("Health", FindFirstObjectByType<Health>().health);
+    }
+
     public void Assign()
     {
         GetComponent<Image>().sprite = card.sprite;

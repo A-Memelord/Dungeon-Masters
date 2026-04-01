@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 62ce352121c549f4aa4f13086ea1cd1e
+guid: 0bd3b3b97f0218945b3e2ca7749c8a65
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,12 +121,122 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: LastResortHealth1_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c338a329de11444937c29eed884a5a
+      internalID: -21964467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LastResortHealth1_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c93c67bd0e9d2f488443b56ed18457c
+      internalID: -1145283012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LastResortHealth1_2
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 088675ff4334b7a4eb2985fe4ef76427
+      internalID: -709581002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LastResortHealth1_3
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53b552326447a2d4fabdf23f2554553c
+      internalID: 1952920710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LastResortHealth1_4
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 34
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25cf38fdd21b30b499e6eeba14a6ba78
+      internalID: -273974757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 64c7a3f2bb441e14283418f13acb7c52
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +245,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      LastResortHealth1_0: -21964467
+      LastResortHealth1_1: -1145283012
+      LastResortHealth1_2: -709581002
+      LastResortHealth1_3: 1952920710
+      LastResortHealth1_4: -273974757
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
