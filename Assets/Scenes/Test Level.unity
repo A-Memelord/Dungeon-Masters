@@ -49442,12 +49442,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1277017358, guid: bc9803e204704264b81f7b83374c8ef0, type: 3}
+  m_Sprite: {fileID: -676007756, guid: cc6f2ffcc8768814ea53e22b0bc82f88, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.61, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -49462,7 +49462,7 @@ Transform:
   m_GameObject: {fileID: 1597431858}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.71, y: 1.1303, z: -107.737}
+  m_LocalPosition: {x: 2.678, y: 1.1303, z: -107.737}
   m_LocalScale: {x: 2.3649, y: 2.342833, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49501,7 +49501,7 @@ Animator:
   m_GameObject: {fileID: 1597431858}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2a4b5ec15ef60e4c9b1d7000a874c91, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -76513,37 +76513,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1 &1984681028 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8197803233955085293, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-  m_PrefabInstance: {fileID: 2905075002113287155}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1984681029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1984681028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 700eceb157cf59946985d0840de81e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 2142389389}
-  playerCam: {fileID: 330585546}
-  dashForce: 1800
-  dashUpwardForce: 3
-  maxDashYSpeed: 15
-  dashDuration: 1
-  cam: {fileID: 1887417687}
-  dashFov: 0
-  useCameraForward: 1
-  allowAllDirections: 1
-  disableGravity: 1
-  resetVel: 1
-  dashCd: 1.5
-  dashKey: 99
 --- !u!43 &2008959717
 Mesh:
   m_ObjectHideFlags: 0
@@ -78944,10 +78913,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4587580876210208130, guid: 435f9d4a2bfce07469153ab0cde31572, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8219519374647517826, guid: 435f9d4a2bfce07469153ab0cde31572, type: 3}
       propertyPath: orientation
       value: 
@@ -78969,34 +78934,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: dashSpeed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: maxYSpeed
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: walkSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: swingSpeed
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: sprintSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: wallrunSpeed
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 136242733861870725, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: maxSlopeAngle
-      value: 85
-      objectReference: {fileID: 0}
     - target: {fileID: 149413424926344495, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: lr
       value: 
@@ -79009,38 +78946,10 @@ PrefabInstance:
       propertyPath: gunTip
       value: 
       objectReference: {fileID: 1481855921}
-    - target: {fileID: 149413424926344495, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 149413424926344495, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: predictionPoint
       value: 
       objectReference: {fileID: 1930541941}
-    - target: {fileID: 149413424926344495, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: predictionSphereCastRadius
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 865998558658646009, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: exitWallTime
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 865998558658646009, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: maxWallRunTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 865998558658646009, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: wallClimbSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 865998558658646009, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: wallJumpUpForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 865998558658646009, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: wallJumpSideForce
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 2219968275366132362, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: lr
       value: 
@@ -79053,10 +78962,6 @@ PrefabInstance:
       propertyPath: gunTip
       value: 
       objectReference: {fileID: 1481855921}
-    - target: {fileID: 2219968275366132362, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -79097,10 +79002,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4964930883271989952, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      propertyPath: maxSlideTime
-      value: 1e+28
-      objectReference: {fileID: 0}
+    - target: {fileID: 5238359746343169991, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1887417687}
+    - target: {fileID: 5238359746343169991, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 330585546}
     - target: {fileID: 8197803233955085293, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_Name
       value: Player
@@ -79108,10 +79017,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8197803233955085293, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1984681029}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
