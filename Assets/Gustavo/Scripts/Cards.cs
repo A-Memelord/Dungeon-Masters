@@ -35,7 +35,12 @@ public class Cards : MonoBehaviour
         }
     }
 
+    public void RandomCard()
+    {
 
+    }
+    
+    
     public void DestroyFirstObject()
     {
         Destroy(transform.GetChild(transform.childCount - 1).gameObject);
@@ -57,6 +62,7 @@ public class Cards : MonoBehaviour
     public void AddLastStand()
     {
         WorldCard.AddCardToInventory(LastStand);
+        
     }
 
     //public void Burst()

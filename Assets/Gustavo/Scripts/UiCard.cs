@@ -18,7 +18,7 @@ public class UiCard : MonoBehaviour
 
     private void Update()
     {
-        GetComponent<Animator>().SetFloat("Health", FindFirstObjectByType<Health>().health);
+        GetComponent<Animator>().SetFloat("killCount", FindFirstObjectByType<KillCountTracker>().killCount);
     }
 
     public void Assign()

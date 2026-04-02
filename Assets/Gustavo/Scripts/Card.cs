@@ -11,7 +11,8 @@ public class Card : ScriptableObject
 
     public void LastStand(UiCard card)
     {
-        KillCountTracker killCountTracker = FindFirstObjectByType<KillCountTracker>();
+        
+        
     }
 
 

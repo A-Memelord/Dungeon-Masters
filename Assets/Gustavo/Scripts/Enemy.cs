@@ -4,7 +4,6 @@ public class Enemy : MonoBehaviour
 {
     public float health;
     public float maxHealth;
-
     void Start()
     {
         health = maxHealth;
@@ -16,9 +15,14 @@ public class Enemy : MonoBehaviour
         {
             gameObject.SetActive(false);
             health = maxHealth;
+            var tracker = FindFirstObjectByType<KillCountTracker>();
+            if (tracker != null)
+                tracker.IncrementKillCount();
+
         }
     }
 
+    
 }
 
 
