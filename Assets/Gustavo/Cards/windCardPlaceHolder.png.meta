@@ -126,12 +126,12 @@ TextureImporter:
       name: windCardPlaceHolder_0
       rect:
         serializedVersion: 2
-        x: 37
+        x: 29
         y: 45
-        width: 25
-        height: 33
+        width: 42
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -148,12 +148,12 @@ TextureImporter:
       name: windCardPlaceHolder_1
       rect:
         serializedVersion: 2
-        x: 137
+        x: 129
         y: 45
-        width: 25
-        height: 33
+        width: 42
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,12 +170,12 @@ TextureImporter:
       name: windCardPlaceHolder_2
       rect:
         serializedVersion: 2
-        x: 237
+        x: 229
         y: 45
-        width: 25
-        height: 33
+        width: 42
+        height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

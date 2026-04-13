@@ -15,5 +15,8 @@ MonoBehaviour:
   onUse:
     m_PersistentCalls:
       m_Calls: []
-  sprite: {fileID: -1489462040, guid: ad9f8c3935eac2b4b82753714addaf6c, type: 3}
-  animatorController: {fileID: 9100000, guid: d367733144bff7549805c4d61b0d23af, type: 2}
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  sprite: {fileID: 1112151230, guid: 7b7da8141512fa04ebd82b87026f54e5, type: 3}
+  animatorController: {fileID: 9100000, guid: b9cb8aec31039e046b7e735cca87e6d0, type: 2}

@@ -4,7 +4,22 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "Card", menuName = "Scriptable Objects/Card")]
 public class Card : ScriptableObject
 {
-    public UnityEvent onUse;
+    public UnityEvent<GameObject> onUse;
+    public UnityEvent<UiCard> onUpdate;
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
+
+    public void LastStand(UiCard card)
+    {
+        
+        
+    }
+
+
+
+
+
+
+
+
 }

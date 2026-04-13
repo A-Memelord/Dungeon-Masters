@@ -16,6 +16,11 @@ public class UiCard : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        GetComponent<Animator>().SetFloat("killCount", FindFirstObjectByType<KillCountTracker>().killCount);
+    }
+
     public void Assign()
     {
         GetComponent<Image>().sprite = card.sprite;
