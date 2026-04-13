@@ -417,7 +417,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 1
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &357538152
@@ -429,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 357538148}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.80083215, y: 1.012, z: 0.32968}
+  m_LocalPosition: {x: 0.01, y: 1.012, z: 3.54}
   m_LocalScale: {x: 3.16087, y: 3.16087, z: 3.16087}
   m_ConstrainProportionsScale: 0
   m_Children: []
