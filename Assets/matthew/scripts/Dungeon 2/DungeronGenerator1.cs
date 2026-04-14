@@ -26,7 +26,6 @@ public class DungeronGenerator1 : MonoBehaviour
     public bool stressTestDungeonGen;
     bool roomsIntersecting;
 
-
     private List<Bounds> _allBounds = new();
 
     GameObject GetRandomRoom(Region region)
@@ -94,14 +93,13 @@ public class DungeronGenerator1 : MonoBehaviour
             newRoom.transform.position = spawnPoint;
             if(roomsIntersecting == true)
             {
-                    DestroyImmediate(newRoom);
-                    roomsIntersecting = false;
+                DestroyImmediate(newRoom);
+                roomsIntersecting = false;
             }
             else
             {
                 _allBounds.Add(box.bounds);
             }
-            
         }
     }
 
@@ -110,6 +108,7 @@ public class DungeronGenerator1 : MonoBehaviour
         ClearRooms();
         Debug.Log("RoomSpawnCounter");
 
+        // Generate all rooms by their region.
         foreach(Region region in regions)
         {
             for (int i = 0; i < region.roomCount; i++)
@@ -117,14 +116,44 @@ public class DungeronGenerator1 : MonoBehaviour
                 SpawnRoom(region); 
             } 
         }
+        
         GameObject startRoom = GameObject.FindGameObjectWithTag("StartRoom");
+
+        Room[] allRooms = FindObjectsByType<Room>(FindObjectsSortMode.None).OrderBy(room => Vector3.Distance(room.transform.position, startRoom.transform.position)).ToArray();
+        List<Door> allDoors = FindObjectsByType<Door>(FindObjectsSortMode.None).ToList();
+
+        // Generate all corridors between rooms.
+        foreach (var room in allRooms)
+        {
+            Door[] doors = room.GetComponentsInChildren<Door>();
+
+            foreach (var door in doors)
+            {
+                Door nextDoor = allDoors
+                    .Where(item => item.transform.parent.parent != room.transform)
+                    .OrderBy(item => Vector3.Distance(item.transform.position, door.transform.position))
+                    .FirstOrDefault();
+
+                if (nextDoor == null)
+                    continue;
+
+                GameObject line = new GameObject();
+                LineRenderer lr = line.AddComponent<LineRenderer>();
+
+                lr.SetPositions(new Vector3[] { door.transform.position, nextDoor.transform.position });
+
+                allDoors.Remove(door);
+                allDoors.Remove(nextDoor);
+            }
+        }
+
+        // Teleport the player to the start room.
         float playerSpawnPointX = startRoom.transform.position.x;
         float playerSpawnPointY = startRoom.transform.position.y;
         float playerSpawnPointZ = startRoom.transform.position.z;
 
-        Vector3 playerSpawnPoint = new(playerSpawnPointX, playerSpawnPointY+1.1f, playerSpawnPointZ);
+        Vector3 playerSpawnPoint = new(playerSpawnPointX, playerSpawnPointY + 1.1f, playerSpawnPointZ);
         player.transform.position = playerSpawnPoint;
-
     }
 
     public void ClearRooms()
