@@ -297,7 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 4037824116240937328}
   playerObj: {fileID: 5669206907707013390}
-  maxSlideTime: 1e+28
+  maxSlideTime: 4
   slideForce: 200
   slideYScale: 0.5
   slideKey: 306

@@ -25,12 +25,16 @@ public class Shop : MonoBehaviour, IInteractable
 
     public void ActivateObject()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         shopUI.SetActive(true);
         shop.PlayOneShot(randomOpening[Random.Range(0, randomOpening.Length)]);
     }
 
     public void DeactivateObject()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         shopUI.SetActive(false);
         shop.PlayOneShot(randomClosing[Random.Range(0, randomClosing.Length)]);
     }
