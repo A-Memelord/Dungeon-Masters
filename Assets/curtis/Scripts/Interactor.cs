@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 
 interface IInteractable
@@ -8,7 +9,7 @@ public class Interactor : MonoBehaviour
 {
     public Transform InteractorSource;
     public float InteractRange;
-
+    public Shop shop;
 
     void Start()
     {
@@ -28,6 +29,12 @@ public class Interactor : MonoBehaviour
                     interactObj.Interact();
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && shop.shopUI.activeSelf == true)
+        {
+            Debug.Log("WORK");
+            shop.DeactivateObject();
         }
     }
 }

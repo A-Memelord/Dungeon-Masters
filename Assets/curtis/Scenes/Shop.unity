@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 32455318}
   - component: {fileID: 32455317}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,6 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 1537180442}
   InteractRange: 4
+  shop: {fileID: 357538153}
 --- !u!1001 &213606148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1106,7 +1107,7 @@ GameObject:
   - component: {fileID: 487552192}
   - component: {fileID: 487552191}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1232,7 +1233,7 @@ GameObject:
   - component: {fileID: 556784857}
   - component: {fileID: 556784856}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1516,6 +1517,8 @@ GameObject:
   - component: {fileID: 806467737}
   - component: {fileID: 806467739}
   - component: {fileID: 806467738}
+  - component: {fileID: 806467740}
+  - component: {fileID: 806467741}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1532,7 +1535,7 @@ RectTransform:
   m_GameObject: {fileID: 806467736}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.57, z: 1}
+  m_LocalScale: {x: 2, y: 1.57, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1595181894}
@@ -1562,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1112151230, guid: 7b7da8141512fa04ebd82b87026f54e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1580,6 +1583,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806467736}
   m_CullTransparentMesh: 1
+--- !u!111 &806467740
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806467736}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 10aa41e4ce2be95448d1e7184c2b6584, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 10aa41e4ce2be95448d1e7184c2b6584, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!95 &806467741
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806467736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d367733144bff7549805c4d61b0d23af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &864101715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1633,8 @@ GameObject:
   - component: {fileID: 864101716}
   - component: {fileID: 864101718}
   - component: {fileID: 864101717}
+  - component: {fileID: 864101719}
+  - component: {fileID: 864101720}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -1607,7 +1651,7 @@ RectTransform:
   m_GameObject: {fileID: 864101715}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.57, z: 1}
+  m_LocalScale: {x: 2, y: 1.57, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1595181894}
@@ -1637,7 +1681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 71714555, guid: 73af601f5469f264ba9f789fe65d964d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1655,6 +1699,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864101715}
   m_CullTransparentMesh: 1
+--- !u!111 &864101719
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864101715}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: d0c503a0cef9b4c4293aff84c287aeb5, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!95 &864101720
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864101715}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d46e9a8b0d93eb04b9d45e77d35bceb8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &865468579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,7 +2102,7 @@ GameObject:
   - component: {fileID: 1162611803}
   - component: {fileID: 1162611802}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2141,7 +2223,7 @@ GameObject:
   - component: {fileID: 1202879787}
   - component: {fileID: 1202879786}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2441,6 +2523,8 @@ GameObject:
   - component: {fileID: 1436955921}
   - component: {fileID: 1436955923}
   - component: {fileID: 1436955922}
+  - component: {fileID: 1436955925}
+  - component: {fileID: 1436955924}
   m_Layer: 5
   m_Name: Image (2)
   m_TagString: Untagged
@@ -2457,7 +2541,7 @@ RectTransform:
   m_GameObject: {fileID: 1436955920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.57, z: 1}
+  m_LocalScale: {x: 2, y: 1.57, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1595181894}
@@ -2487,7 +2571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1610675503, guid: e6a9e9a28e3bfc84cbe30f517add2d59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2505,6 +2589,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436955920}
   m_CullTransparentMesh: 1
+--- !u!95 &1436955924
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436955920}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e18be9bace963354abdd1737df9162b3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!111 &1436955925
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436955920}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 3c4adf5028c4ce1409d88048aa61ccc4, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &1479055784
 GameObject:
   m_ObjectHideFlags: 0
@@ -2523,7 +2645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1479055785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3131,7 +3253,7 @@ GameObject:
   - component: {fileID: 1973280896}
   - component: {fileID: 1973280895}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: Buy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

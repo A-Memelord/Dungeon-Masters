@@ -22,7 +22,6 @@ public class Shop : MonoBehaviour, IInteractable
         }
     }
 
-
     public void ActivateObject()
     {
         Cursor.lockState = CursorLockMode.None;
