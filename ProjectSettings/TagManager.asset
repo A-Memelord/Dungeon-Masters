@@ -8,6 +8,10 @@ TagManager:
   - FlameCard
   - SlashCard
   - StartRoom
+  - door
+  - room
+  - wall
+  - floor
   layers:
   - Default
   - TransparentFX

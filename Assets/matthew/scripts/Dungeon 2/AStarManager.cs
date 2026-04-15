@@ -11,11 +11,11 @@ public class AStarManager : MonoBehaviour
         instance = this;
     }
 
-    public List<Node> GeneratePath(Node start,  Node end)
+    public List<Node> GeneratePath(Node start, Node end)
     {
         List<Node> openSet = new List<Node>();
 
-        foreach(Node n in FindObjectsByType<Node>(FindObjectsSortMode.None))
+        foreach (Node n in FindObjectsByType<Node>(FindObjectsSortMode.None))
         {
             n.gScore = float.MaxValue;
         }
@@ -24,7 +24,7 @@ public class AStarManager : MonoBehaviour
         start.hScore = Vector3.Distance(start.transform.position, end.transform.position);
         openSet.Add(start);
 
-        while(openSet.Count > 0)
+        while (openSet.Count > 0)
         {
             int lowestF = default;
 
@@ -39,23 +39,25 @@ public class AStarManager : MonoBehaviour
             Node currentNode = openSet[lowestF];
             openSet.Remove(currentNode);
 
-            if(currentNode == end)
+            if (currentNode == end)
             {
+                print("End");
+
                 List<Node> path = new List<Node>();
 
                 path.Insert(0, end);
 
-                while(currentNode != start)
+                while (currentNode != start)
                 {
                     currentNode = currentNode.cameFrom;
                     path.Add(currentNode);
                 }
 
-                path.Reverse();
+                //path.Reverse();
                 return path;
             }
-
-            foreach(Node connectedNode in currentNode.connections)
+            
+            foreach (Node connectedNode in currentNode.connections)
             {
                 float heldGScore = currentNode.gScore + Vector3.Distance(currentNode.transform.position, connectedNode.transform.position);
 
@@ -64,7 +66,7 @@ public class AStarManager : MonoBehaviour
                     connectedNode.cameFrom = currentNode;
                     connectedNode.gScore = heldGScore;
                     connectedNode.hScore = Vector3.Distance(connectedNode.transform.position, end.transform.position);
-
+                    
                     if (!openSet.Contains(connectedNode))
                     {
                         openSet.Add(connectedNode);
