@@ -1,9 +1,14 @@
 using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UIElements;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 [System.Serializable]
 public struct Region
@@ -20,12 +25,16 @@ public class DungeronGenerator1 : MonoBehaviour
 
     public GameObject player;
     public GameObject roomParent;
+    public GameObject hallwayParent;
+    public GameObject hallway;
+    public GameObject hallwayCorner;
 
     public float gridSize = 1;
     public float boundsExtra;
     public bool stressTestDungeonGen;
     bool roomsIntersecting;
 
+    public Material lineMat;
     private List<Bounds> _allBounds = new();
 
     GameObject GetRandomRoom(Region region)
@@ -119,15 +128,19 @@ public class DungeronGenerator1 : MonoBehaviour
         
         GameObject startRoom = GameObject.FindGameObjectWithTag("StartRoom");
 
-        Room[] allRooms = FindObjectsByType<Room>(FindObjectsSortMode.None).OrderBy(room => Vector3.Distance(room.transform.position, startRoom.transform.position)).ToArray();
-        List<Door> allDoors = FindObjectsByType<Door>(FindObjectsSortMode.None).ToList();
+        Room[] allRooms = FindObjectsByType<Room>(FindObjectsSortMode.None)
+            .OrderBy(room => Vector3.Distance(room.transform.position, startRoom.transform.position))
+            .ToArray();
+        
+        List<Door> allDoors = FindObjectsByType<Door>(FindObjectsSortMode.None)
+            .ToList();
 
         // Generate all corridors between rooms.
         foreach (var room in allRooms)
         {
-            Door[] doors = room.GetComponentsInChildren<Door>();
+            Door[] roomDoors = room.GetComponentsInChildren<Door>();
 
-            foreach (var door in doors)
+            foreach (var door in roomDoors)
             {
                 Door nextDoor = allDoors
                     .Where(item => item.transform.parent.parent != room.transform)
@@ -137,13 +150,13 @@ public class DungeronGenerator1 : MonoBehaviour
                 if (nextDoor == null)
                     continue;
 
-                GameObject line = new GameObject();
-                LineRenderer lr = line.AddComponent<LineRenderer>();
-
-                lr.SetPositions(new Vector3[] { door.transform.position, nextDoor.transform.position });
+                CreateCorridor(door, nextDoor);
 
                 allDoors.Remove(door);
                 allDoors.Remove(nextDoor);
+
+                DestroyImmediate(door);
+                DestroyImmediate(nextDoor);
             }
         }
 
@@ -156,14 +169,114 @@ public class DungeronGenerator1 : MonoBehaviour
         player.transform.position = playerSpawnPoint;
     }
 
+    private void CreateCorridor(Door doorA, Door doorB)
+    {
+        GameObject line = new();
+        LineRenderer lr = line.AddComponent<LineRenderer>();
+        line.transform.SetParent(hallwayParent.transform);
+
+        Vector3[] positions = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
+            GenerateCornerCorridor(doorA, doorB) : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
+            GenerateHorizontalCorridor(doorA, doorB) :
+            GenerateVerticalCorridor(doorA, doorB);
+        
+        lr.positionCount = positions.Length;
+
+        lr.endColor = lr.startColor = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
+            Color.yellow : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
+            Color.red :
+            Color.blue;
+        lr.material = lineMat;
+
+        lr.SetPositions(positions);
+    }
+
+    private Vector3[] GenerateHorizontalCorridor(Door doorA, Door doorB)
+    {
+        float lerp = Random.Range(0.25f, 0.75f);
+        Vector3[] positions = new Vector3[4];
+
+        positions[0] = doorA.transform.position;
+
+        positions[1] = new Vector3
+        (
+            x: Mathf.Lerp(doorA.transform.position.x, doorB.transform.position.x, lerp),
+            y: doorA.transform.position.y,
+            z: doorA.transform.position.z
+        );
+
+        positions[2] = new Vector3
+        (
+            x: Mathf.Lerp(doorA.transform.position.x, doorB.transform.position.x, lerp),
+            y: doorB.transform.position.y,
+            z: doorB.transform.position.z
+        );
+
+        positions[3] = doorB.transform.position;
+
+        return positions;
+    }
+
+    private Vector3[] GenerateVerticalCorridor(Door doorA, Door doorB)
+    {
+        float lerp = Random.Range(0.25f, 0.75f);
+        Vector3[] positions = new Vector3[4];
+
+        positions[0] = doorA.transform.position;
+
+        positions[1] = new Vector3
+        (
+            x: doorA.transform.position.x,
+            y: doorA.transform.position.y,
+            z: Mathf.Lerp(doorA.transform.position.z, doorB.transform.position.z, lerp)
+        );
+
+        positions[2] = new Vector3
+        (
+            x: doorB.transform.position.x,
+            y: doorB.transform.position.y,
+            z: Mathf.Lerp(doorA.transform.position.z, doorB.transform.position.z, lerp)
+        );
+
+        positions[3] = doorB.transform.position;
+
+        return positions;
+    }
+
+    private Vector3[] GenerateCornerCorridor(Door doorA, Door doorB)
+    {
+        Vector3[] positions = new Vector3[3];
+
+        positions[0] = doorA.transform.position;
+
+        positions[1] = new Vector3
+        (
+            x: doorA.transform.position.x,
+            y: doorA.transform.position.y,
+            z: doorB.transform.position.z
+        );
+       // Instantiate(hallway, positions[1].x, Quaternion.identity);
+
+        positions[2] = doorB.transform.position;
+
+        return positions;
+    }
+
+    // Destroys entire dungeon
     public void ClearRooms()
     {
-        int childedRooms = _allBounds.Count;
+        int childedRooms = roomParent.transform.childCount;
         _allBounds.Clear();
+        int allDoors = hallwayParent.transform.childCount;
         
+
         for (int i = 0; i < childedRooms; i++)
         {
             DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+        }
+        for (int i = 0; i < allDoors; i++)
+        {
+            DestroyImmediate(hallwayParent.transform.GetChild(0).gameObject);
         }
     }
 
