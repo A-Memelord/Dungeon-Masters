@@ -354,7 +354,6 @@ MonoBehaviour:
     - {fileID: 1452092567713120154, guid: 889e560c6feb50448932bccd522232cf, type: 3}
     - {fileID: 3135172075807581787, guid: 9cd3b6351d876a44681094487a978403, type: 3}
     - {fileID: 5404105776003734186, guid: 2f9df0ba9fed1f646b7038068018a1b2, type: 3}
-    - {fileID: 2841084121988484151, guid: b1baf61b5f48c1944bbf7e62076cbd76, type: 3}
     - {fileID: 1912063207069490955, guid: a50392e9cb1da2e45bd1f8eabe2b5814, type: 3}
     - {fileID: 839990790707752679, guid: 681cabfded653c24a979fb5078135d4d, type: 3}
     - {fileID: 598513231093640554, guid: a4f760748ef76d443ba01e1b67c8bfcc, type: 3}
@@ -364,7 +363,7 @@ MonoBehaviour:
   roomParent: {fileID: 26354201}
   hallwayParent: {fileID: 1861800041}
   hallway: {fileID: 240079991751548301, guid: 861623a31f6044947bf2a3cf4135c3cb, type: 3}
-  hallwayCorner: {fileID: 6265717701534491315, guid: 4fc31321f28e67947b9c9ea0375f6d19, type: 3}
+  hallwayCorner: {fileID: 7024850498784665866, guid: 6b6f40dfb5098d845871eaa7a8898987, type: 3}
   gridSize: 4
   boundsExtra: 5
   stressTestDungeonGen: 0
@@ -908,7 +907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.y
@@ -916,7 +915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 40
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalRotation.w
