@@ -138,7 +138,10 @@ public class DungeronGenerator1 : MonoBehaviour
         // Generate all corridors between rooms.
         foreach (var room in allRooms)
         {
+            room.GetComponentsInChildren<Door>();
+            
             Door[] roomDoors = room.GetComponentsInChildren<Door>();
+
 
             foreach (var door in roomDoors)
             {
@@ -214,6 +217,32 @@ public class DungeronGenerator1 : MonoBehaviour
 
         positions[3] = doorB.transform.position;
 
+        // first corner
+        Vector3 direction1 = positions[0] - positions[1];
+        direction1.y = 0;
+
+        Vector3 direction2 = positions[2] - positions[1];
+        direction2.y = 0;
+
+        Vector3 bisector = (direction1.normalized + direction2.normalized).normalized;
+
+        GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallwayParent.transform);
+        hallwayCorner_.transform.position = positions[1];
+        hallwayCorner_.transform.forward = bisector;
+
+        // second corner
+        Vector3 direction3 = positions[1] - positions[2];
+        direction3.y = 0;
+
+        Vector3 direction4 = positions[3] - positions[2];
+        direction4.y = 0;
+
+        Vector3 bisector_ = (direction3.normalized + direction4.normalized).normalized;
+
+        GameObject hallwayCorner__ = Instantiate(hallwayCorner, hallwayParent.transform);
+        hallwayCorner__.transform.position = positions[2];
+        hallwayCorner__.transform.forward = bisector_;
+
         return positions;
     }
 
@@ -239,6 +268,32 @@ public class DungeronGenerator1 : MonoBehaviour
         );
 
         positions[3] = doorB.transform.position;
+
+        // first corner
+        Vector3 direction1 = positions[0] - positions[1];
+        direction1.y = 0;
+
+        Vector3 direction2 = positions[2] - positions[1];
+        direction2.y = 0;
+
+        Vector3 bisector = (direction1.normalized + direction2.normalized).normalized;
+
+        GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallwayParent.transform);
+        hallwayCorner_.transform.position = positions[1];
+        hallwayCorner_.transform.forward = bisector;
+
+        // second corner
+        Vector3 direction3 = positions[1] - positions[2];
+        direction3.y = 0;
+
+        Vector3 direction4 = positions[3] - positions[2];
+        direction4.y = 0;
+
+        Vector3 bisector_ = (direction3.normalized + direction4.normalized).normalized;
+
+        GameObject hallwayCorner__ = Instantiate(hallwayCorner, hallwayParent.transform);
+        hallwayCorner__.transform.position = positions[2];
+        hallwayCorner__.transform.forward = bisector_;
 
         return positions;
     }
