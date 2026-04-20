@@ -33,7 +33,6 @@ public class Interactor : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) && shop.shopUI.activeSelf == true)
         {
-            Debug.Log("WORK");
             shop.DeactivateObject();
         }
     }
