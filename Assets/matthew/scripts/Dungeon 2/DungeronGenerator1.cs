@@ -248,24 +248,27 @@ public class DungeronGenerator1 : MonoBehaviour
         Vector3[] positions = new Vector3[3];
 
         positions[0] = doorA.transform.position;
-
         positions[1] = new Vector3
         (
             x: doorA.transform.position.x,
             y: doorA.transform.position.y,
             z: doorB.transform.position.z
         );
-        Vector3 hallPos = positions[1];
-        Vector3 direction1 = positions[0] - positions[1];
-        Vector3 direction2 = positions[2] - positions[1];
-
-        Quaternion hallRot = Quaternion.Euler(0, Vector3.Angle(direction1, direction2) * Mathf.Rad2Deg, 0);
-        
-        GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallPos, hallRot);
-        hallwayCorner_.transform.SetParent(hallwayParent.transform);
-
-
         positions[2] = doorB.transform.position;
+
+        Vector3 direction1 = positions[0] - positions[1];
+        direction1.y = 0;
+
+        Vector3 direction2 = positions[2] - positions[1];
+        direction2.y = 0;
+
+        Vector3 bisector = (direction1.normalized + direction2.normalized).normalized;
+
+        GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallwayParent.transform);
+        hallwayCorner_.transform.position = positions[1];
+        hallwayCorner_.transform.forward = bisector;
+
+        //hallwayCorner_.transform.rotation = Quaternion.Euler(0, Mathf.Round(hallwayCorner_.transform.rotation.eulerAngles.y / 90f) * 90f - 45f, 0);
 
         return positions;
     }
