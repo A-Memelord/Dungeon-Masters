@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.AI;
-public class EnemyAI : MonoBehaviour
+
+public class EnemySkeleAI : MonoBehaviour
 {
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -86,7 +88,8 @@ public class EnemyAI : MonoBehaviour
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             Physics.IgnoreCollision(rb.GetComponent<Collider>(), collider);
             rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 0f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 3f, ForceMode.Impulse);
+            rb.AddTorque((transform.forward + transform.right) * 5f, ForceMode.Impulse);
             ///End of attack code
 
             alreadyAttacked = true;

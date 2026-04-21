@@ -14,12 +14,12 @@ public class Destroy : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         StartCoroutine(waitToDestory());
-        Debug.Log("Collided");
+        Debug.Log("Collided"+collision.gameObject.name);
     }
 
     public IEnumerator waitToDestory()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
 }
