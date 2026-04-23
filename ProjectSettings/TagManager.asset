@@ -12,6 +12,7 @@ TagManager:
   - room
   - wall
   - floor
+  - Portal Camera
   layers:
   - Default
   - TransparentFX
