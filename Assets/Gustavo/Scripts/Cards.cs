@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -7,6 +8,12 @@ using UnityEngine.InputSystem;
 public class Cards : MonoBehaviour
 {
     public Card LastStand;
+    [SerializeField] StatusEffectData _data;
+    
+    public Card[] CardPool;
+
+    [SerializeField] private float lastStandCooldown = 6f;
+    [HideInInspector] public bool LastStandAdded = false;
 
     private void Update()
     {
@@ -18,10 +25,13 @@ public class Cards : MonoBehaviour
             }
         }
 
-        if (transform.childCount == 0)
+        
+        if (transform.childCount == 0 && !LastStandAdded)
         {
             AddLastStand();
         }
+        
+    
     }
 
     public void Shuffle(InputAction.CallbackContext context)
@@ -35,12 +45,8 @@ public class Cards : MonoBehaviour
         }
     }
 
-    public void RandomCard()
-    {
 
-    }
-    
-    
+
     public void DestroyFirstObject()
     {
         Destroy(transform.GetChild(transform.childCount - 1).gameObject);
@@ -56,22 +62,59 @@ public class Cards : MonoBehaviour
             uiCard.card.onUse.Invoke(GameObject.FindWithTag("Player"));
         }
         DestroyFirstObject();
-
     }
 
+    
     public void AddLastStand()
     {
+        if (LastStandAdded)
+        {
+            
+            return;
+        }
+
         WorldCard.AddCardToInventory(LastStand);
+        LastStandAdded = true;
+
         
+        
+
+        var effectable = GetComponent<IEffectable>();
+        if (effectable != null)
+        {
+            effectable.ApplyEffect(_data);
+        }
+
+        Debug.Log("Added Last Stand to inventory and applied effect.");
     }
 
-    //public void Burst()
-    //{
-    //    GameObject canvas = GameObject.Find("Canvas/Cards");
-    //    if (canvas == null)
-    //    {
-    //        AddLastStand();
-    //    }
-    //}
+    
+    public void StartLastStandCooldown(float delay)
+    {
+        StartCoroutine(WaitForLastStand(delay));
+    }
+
+    private IEnumerator WaitForLastStand(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        LastStandAdded = false;
+        Debug.Log("Last Stand can now be added again.");
+    }
+
+   
+    public void AddRandomCards(int count)
+    {
+        if (CardPool == null || CardPool.Length == 0)
+        {
+            Debug.LogWarning("Add cards via inspector");
+            return;
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            var idx = Random.Range(0, CardPool.Length);
+            WorldCard.AddCardToInventory(CardPool[idx]);
+        }
+    }
 }
 

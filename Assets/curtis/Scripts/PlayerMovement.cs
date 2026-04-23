@@ -49,7 +49,9 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit slopeHit;
     public bool exitingSlope;
 
+    //private StatusEffectData _data;
 
+    //private GameObject _effectParticles;
 
     Vector3 moveDirection;
 
@@ -102,6 +104,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearDamping = 0;
         }
+   
+        
     }
 
     private void MyInput()
@@ -119,8 +123,45 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     //lerp
+
+    //private float currentMoveSpeed;
+    //private float _currentEffectTime = 0f;
+    //private float _nextTickTime = 0f;
+    //public void ApplyEffect(StatusEffectData _data)
+    //{
+    //    RemoveEffect();
+    //    this._data = _data;
+    //    _effectParticles = Instantiate(_data.Effectparticles, transform);
+    //}
+
+    //public void RemoveEffect()
+    //{
+    //    _data = null;
+    //    _currentEffectTime = 0;
+    //    _nextTickTime = 0;
+    //    if (_effectParticles != null) Destroy(_effectParticles);
+
+    //}
+
+    //public void HandleEffect()
+    //{
+    //    _currentEffectTime += Time.deltaTime;
+
+    //    if (_currentEffectTime >= _data.Lifetime) RemoveEffect();
+
+    //    if (_data.DOTAmount != 0 && _currentEffectTime > _nextTickTime)
+    //    {
+    //        _nextTickTime = _data.TickSpeed;
+            
+    //    }
+
+        
+    //}
     private void StateHandler()
     {
+        
+
+
         if (dashing)
         {
             state = MovementState.dashing;

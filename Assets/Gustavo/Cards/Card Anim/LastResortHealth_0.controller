@@ -14,15 +14,15 @@ BlendTree:
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Health
+    m_DirectBlendParameter: killCount
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 40780273e4d76874996b9451444ddac9, type: 2}
-    m_Threshold: 4
+    m_Threshold: 4.666667
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Health
+    m_DirectBlendParameter: killCount
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 28d5838db9e6c6d488c5c81854797ef3, type: 2}
@@ -30,7 +30,7 @@ BlendTree:
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Health
+    m_DirectBlendParameter: killCount
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 5ff3402020480f44ea118141f5958bc8, type: 2}
@@ -38,10 +38,10 @@ BlendTree:
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: Health
+    m_DirectBlendParameter: killCount
     m_Mirror: 0
   m_BlendParameter: killCount
-  m_BlendParameterY: Health
+  m_BlendParameterY: 
   m_MinThreshold: 2
   m_MaxThreshold: 10
   m_UseAutomaticThresholds: 0
@@ -56,7 +56,7 @@ AnimatorController:
   m_Name: LastResortHealth_0
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Health
+  - m_Name: currentHealth
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -125,7 +125,7 @@ AnimatorState:
   m_TimeParameterActive: 0
   m_Motion: {fileID: -161639383667185629}
   m_Tag: 
-  m_SpeedParameter: Health
+  m_SpeedParameter: currentHealth
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 

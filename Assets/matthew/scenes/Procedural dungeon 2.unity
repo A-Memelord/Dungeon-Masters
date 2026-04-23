@@ -362,7 +362,7 @@ MonoBehaviour:
   player: {fileID: 783125877}
   roomParent: {fileID: 26354201}
   hallwayParent: {fileID: 1861800041}
-  hallway: {fileID: 240079991751548301, guid: 861623a31f6044947bf2a3cf4135c3cb, type: 3}
+  hallway: {fileID: 2905505563654930531, guid: 90abda4533b842b47aae64378a68294e, type: 3}
   hallwayCorner: {fileID: 7024850498784665866, guid: 6b6f40dfb5098d845871eaa7a8898987, type: 3}
   gridSize: 4
   boundsExtra: 5
@@ -907,7 +907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.y
@@ -915,7 +915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 3260042663068424744, guid: d72c7744c8a0dd54ea0279da90c38c69, type: 3}
       propertyPath: m_LocalRotation.w

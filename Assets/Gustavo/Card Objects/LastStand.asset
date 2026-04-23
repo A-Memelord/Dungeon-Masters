@@ -14,19 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onUse:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onUpdate:
     m_PersistentCalls:
       m_Calls:
@@ -44,3 +32,4 @@ MonoBehaviour:
         m_CallState: 2
   sprite: {fileID: -544055224, guid: 603b9a4bd2768764e9032986b2149283, type: 3}
   animatorController: {fileID: 9100000, guid: ab308889c1261e8448ff33c1e6dbe2cf, type: 2}
+  statusEffect: {fileID: 11400000, guid: aa0de3242683b5941aedf242427b5497, type: 2}
