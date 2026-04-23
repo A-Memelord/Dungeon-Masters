@@ -6086,6 +6086,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   health: 42432416
+  throwForce: 8
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
   timeBetweenAttacks: 2
@@ -8343,6 +8344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastStand: {fileID: 0}
+  _data: {fileID: 0}
+  CardPool: []
+  lastStandCooldown: 6
+  LastStandAdded: 0
 --- !u!1 &1289809962
 GameObject:
   m_ObjectHideFlags: 0
