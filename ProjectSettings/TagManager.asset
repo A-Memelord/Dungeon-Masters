@@ -8,6 +8,10 @@ TagManager:
   - FlameCard
   - SlashCard
   - StartRoom
+  - door
+  - room
+  - wall
+  - floor
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - FirstShown
   - SecondShown
   - ThirdShown
-  - enemyLayer
+  - whatIsPlayer
   - 
   - 
   - 

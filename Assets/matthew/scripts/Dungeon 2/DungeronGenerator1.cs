@@ -1,9 +1,14 @@
 using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.UIElements;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 [System.Serializable]
 public struct Region
@@ -20,13 +25,16 @@ public class DungeronGenerator1 : MonoBehaviour
 
     public GameObject player;
     public GameObject roomParent;
+    public GameObject hallwayParent;
+    public GameObject hallway;
+    public GameObject hallwayCorner;
 
     public float gridSize = 1;
     public float boundsExtra;
     public bool stressTestDungeonGen;
     bool roomsIntersecting;
 
-
+    public Material lineMat;
     private List<Bounds> _allBounds = new();
 
     GameObject GetRandomRoom(Region region)
@@ -94,14 +102,13 @@ public class DungeronGenerator1 : MonoBehaviour
             newRoom.transform.position = spawnPoint;
             if(roomsIntersecting == true)
             {
-                    DestroyImmediate(newRoom);
-                    roomsIntersecting = false;
+                DestroyImmediate(newRoom);
+                roomsIntersecting = false;
             }
             else
             {
                 _allBounds.Add(box.bounds);
             }
-            
         }
     }
 
@@ -110,6 +117,7 @@ public class DungeronGenerator1 : MonoBehaviour
         ClearRooms();
         Debug.Log("RoomSpawnCounter");
 
+        // Generate all rooms by their region.
         foreach(Region region in regions)
         {
             for (int i = 0; i < region.roomCount; i++)
@@ -117,24 +125,242 @@ public class DungeronGenerator1 : MonoBehaviour
                 SpawnRoom(region); 
             } 
         }
+        
         GameObject startRoom = GameObject.FindGameObjectWithTag("StartRoom");
+
+        Room[] allRooms = FindObjectsByType<Room>(FindObjectsSortMode.None)
+            .OrderBy(room => Vector3.Distance(room.transform.position, startRoom.transform.position))
+            .ToArray();
+        
+        List<Door> allDoors = FindObjectsByType<Door>(FindObjectsSortMode.None)
+            .ToList();
+
+        //int randomIndex = Random.Range(0, allDoors.Count);
+        //allDoors.RemoveAt(randomIndex);
+
+        // Generate all corridors between rooms.
+        foreach (var room in allRooms)
+        {
+            room.GetComponentsInChildren<Door>();
+            
+            Door[] roomDoors = room.GetComponentsInChildren<Door>();
+
+
+            foreach (var door in roomDoors)
+            {
+                Door nextDoor = allDoors
+                    .Where(item => item.transform.parent.parent != room.transform)
+                    .OrderBy(item => Vector3.Distance(item.transform.position, door.transform.position))
+                    .FirstOrDefault();
+
+                if (nextDoor == null)
+                    continue;
+
+                CreateCorridor(door, nextDoor);
+
+                allDoors.Remove(door);
+                allDoors.Remove(nextDoor);
+
+                DestroyImmediate(door);
+                DestroyImmediate(nextDoor);
+            }
+        }
+
+        // Teleport the player to the start room.
         float playerSpawnPointX = startRoom.transform.position.x;
         float playerSpawnPointY = startRoom.transform.position.y;
         float playerSpawnPointZ = startRoom.transform.position.z;
 
-        Vector3 playerSpawnPoint = new(playerSpawnPointX, playerSpawnPointY+1.1f, playerSpawnPointZ);
+        Vector3 playerSpawnPoint = new(playerSpawnPointX, playerSpawnPointY + 1.1f, playerSpawnPointZ);
         player.transform.position = playerSpawnPoint;
-
     }
 
+    private void CreateCorridor(Door doorA, Door doorB)
+    {
+        GameObject line = new();
+        LineRenderer lr = line.AddComponent<LineRenderer>();
+        line.transform.SetParent(hallwayParent.transform);
+
+        Vector3[] positions = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
+            GenerateCornerCorridor(doorA, doorB) : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
+            GenerateHorizontalCorridor(doorA, doorB) :
+            GenerateVerticalCorridor(doorA, doorB);
+        
+        lr.endColor = lr.startColor = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
+            Color.yellow : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
+            Color.red :
+            Color.blue;
+        lr.material = lineMat;
+
+        lr.positionCount = positions.Length;
+        lr.SetPositions(positions);
+    }
+
+    private Vector3[] GenerateHorizontalCorridor(Door doorA, Door doorB)
+    {
+        float lerp = Random.Range(0.5f, 0.5f);
+        Vector3[] positions = new Vector3[4];
+
+        positions[0] = doorA.transform.position;
+        positions[1] = new Vector3
+        (
+            x: Mathf.Lerp(doorA.transform.position.x, doorB.transform.position.x, lerp),
+            y: doorA.transform.position.y,
+            z: doorA.transform.position.z
+        );
+        positions[2] = new Vector3
+        (
+            x: Mathf.Lerp(doorA.transform.position.x, doorB.transform.position.x, lerp),
+            y: doorB.transform.position.y,
+            z: doorB.transform.position.z
+        );
+        positions[3] = doorB.transform.position;
+
+        //// first corner
+        //Vector3 direction1 = positions[0] - positions[1];
+        //direction1.y = 0;
+
+        //Vector3 direction2 = positions[2] - positions[1];
+        //direction2.y = 0;
+
+        //Vector3 bisector = (direction1.normalized + direction2.normalized).normalized;
+
+        //GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallwayParent.transform);
+        //hallwayCorner_.transform.position = positions[1];
+        //hallwayCorner_.transform.forward = bisector;
+
+        //// second corner
+        //Vector3 direction3 = positions[1] - positions[2];
+        //direction3.y = 0;
+
+        //Vector3 direction4 = positions[3] - positions[2];
+        //direction4.y = 0;
+
+        //Vector3 bisector_ = (direction3.normalized + direction4.normalized).normalized;
+
+        //GameObject hallwayCorner__ = Instantiate(hallwayCorner, hallwayParent.transform);
+        //hallwayCorner__.transform.position = positions[2];
+        //hallwayCorner__.transform.forward = bisector_;
+
+        return positions;
+    }
+
+    private Vector3[] GenerateVerticalCorridor(Door doorA, Door doorB)
+    {
+        float lerp = Random.Range(0.5f, 0.5f);
+        Vector3[] positions = new Vector3[4];
+
+        positions[0] = doorA.transform.position;
+        positions[1] = new Vector3
+        (
+            x: doorA.transform.position.x,
+            y: doorA.transform.position.y,
+            z: Mathf.Lerp(doorA.transform.position.z, doorB.transform.position.z, lerp)
+        );
+        positions[2] = new Vector3
+        (
+            x: doorB.transform.position.x,
+            y: doorB.transform.position.y,
+            z: Mathf.Lerp(doorA.transform.position.z, doorB.transform.position.z, lerp)
+        );
+        positions[3] = doorB.transform.position;
+
+        //// first corner
+        //Vector3 direction1 = positions[0] - positions[1];
+        //direction1.y = 0;
+
+        //Vector3 direction2 = positions[2] - positions[1];
+        //direction2.y = 0;
+
+        //Vector3 bisector = (direction1.normalized + direction2.normalized).normalized;
+
+        //GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallwayParent.transform);
+        //hallwayCorner_.transform.position = positions[1];
+        //hallwayCorner_.transform.forward = bisector;
+
+        //// second corner
+        //Vector3 direction3 = positions[1] - positions[2];
+        //direction3.y = 0;
+
+        //Vector3 direction4 = positions[3] - positions[2];
+        //direction4.y = 0;
+
+        //Vector3 bisector_ = (direction3.normalized + direction4.normalized).normalized;
+
+        //GameObject hallwayCorner__ = Instantiate(hallwayCorner, hallwayParent.transform);
+        //hallwayCorner__.transform.position = positions[2];
+        //hallwayCorner__.transform.forward = bisector_;
+
+        return positions;
+    }
+
+    private Vector3[] GenerateCornerCorridor(Door doorA, Door doorB)
+    {
+        Vector3[] positions = new Vector3[3];
+
+        positions[0] = doorA.transform.position;
+        positions[1] = new Vector3
+        (
+            x: doorA.transform.position.x,
+            y: doorA.transform.position.y,
+            z: doorB.transform.position.z
+        );
+        positions[2] = doorB.transform.position;
+
+        //Vector3 direction1 = positions[0] - positions[1];
+        //direction1.y = 0;
+
+        //Vector3 direction2 = positions[2] - positions[1];
+        //direction2.y = 0;
+
+        //Vector3 bisector = (direction1.normalized + direction2.normalized).normalized;
+
+        //GameObject hallwayCorner_ = Instantiate(hallwayCorner, hallwayParent.transform);
+        //hallwayCorner_.transform.position = positions[1];
+        //hallwayCorner_.transform.forward = bisector;
+
+        //Vector3 direction1_ = positions[0] - positions[1];
+
+        //Vector3 hallwayPos = Vector3.Lerp(positions[0], positions[1], .5f);
+
+        //GameObject hallway_ = Instantiate(hallway, hallwayParent.transform);
+        //hallway_.transform.position = hallwayPos;
+        //hallway_.transform.forward = direction1_;
+
+        //// Scale this hallway and floor.
+        //hallway_.transform.localScale = new Vector3(1, 1, direction1.magnitude / 4.5f);
+        //hallway_.GetComponentInChildren<Renderer>().material.mainTextureScale = new(10, 1);
+
+        //Vector3 direction2_ = positions[2] - positions[1];
+
+        //Vector3 hallwayPos_ = Vector3.Lerp(positions[2], positions[1], .5f);
+
+        //hallway_ = Instantiate(hallway, hallwayParent.transform);
+        //hallway_.transform.position = hallwayPos_;
+        //hallway_.transform.forward = direction2_;
+        
+        //// Scale this hallway and floor.
+        //hallway_.transform.localScale = new Vector3(1, 1, direction2.magnitude / 4.5f);
+        //hallway_.GetComponentInChildren<Renderer>().material.mainTextureScale = new(10, 1);
+
+        return positions;
+    }
+
+    // Destroys entire dungeon
     public void ClearRooms()
     {
-        int childedRooms = _allBounds.Count;
+        int childedRooms = roomParent.transform.childCount;
         _allBounds.Clear();
+        int allDoors = hallwayParent.transform.childCount;
         
+
         for (int i = 0; i < childedRooms; i++)
         {
             DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+        }
+        for (int i = 0; i < allDoors; i++)
+        {
+            DestroyImmediate(hallwayParent.transform.GetChild(0).gameObject);
         }
     }
 
