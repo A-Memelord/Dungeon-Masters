@@ -8,7 +8,7 @@ public class Card : ScriptableObject
     public UnityEvent<UiCard> onUpdate;
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
-
+    public StatusEffectData statusEffect;
     public void LastStand(UiCard card)
     {
         
