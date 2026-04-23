@@ -14,7 +14,10 @@ public class EnemySkeleAI : MonoBehaviour
 
     private Collider collider;
 
+    private SpriteRenderer sr;
 
+
+    public float throwForce;
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
@@ -87,7 +90,8 @@ public class EnemySkeleAI : MonoBehaviour
             ///Attack code here
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             Physics.IgnoreCollision(rb.GetComponent<Collider>(), collider);
-            rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
+    
+            rb.AddForce(transform.forward * throwForce, ForceMode.Impulse);
             rb.AddForce(transform.up * 3f, ForceMode.Impulse);
             rb.AddTorque((transform.forward + transform.right) * 5f, ForceMode.Impulse);
             ///End of attack code
