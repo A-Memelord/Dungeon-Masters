@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Burn
   m_EditorClassIdentifier: 
   Name: LastStandTick
-  DOTAmount: 3
+  DOTAmount: 4
   TickSpeed: 1
   MovementBoost: 0
-  Lifetime: 65
+  Lifetime: 3
   Effectparticles: {fileID: 0}
