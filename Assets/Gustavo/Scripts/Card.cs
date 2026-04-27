@@ -9,11 +9,8 @@ public class Card : ScriptableObject
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
     public StatusEffectData statusEffect;
-    public void LastStand(UiCard card)
-    {
-        
-        
-    }
+   
+    
 
 
 
