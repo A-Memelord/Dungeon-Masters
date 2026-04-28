@@ -159,10 +159,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 200900059}
+  - component: {fileID: 200900061}
   - component: {fileID: 200900058}
   - component: {fileID: 200900057}
+  - component: {fileID: 200900060}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Quad_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,6 +238,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1599816861}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
+--- !u!64 &200900060
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200900056}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &200900061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200900056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e529f9e846ff2499c8c1798ecd4276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedPortal: {fileID: 1600107238}
+  portalSurface: {fileID: 200900059}
+  exitOffset: 0.3
+  exitYOffset: 0
+  preserveVelocity: 0
+  rotateCameraDuration: 0.3
+  pauseRotation: 0
+  onTeleport:
+    m_PersistentCalls:
+      m_Calls: []
+  onTeleportDelay: 0
+  onPlayerLookAway:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEventOnEnter: 0
+  immediateCheck: 0
+  watchTarget: {fileID: 0}
+  lookCheckInterval: 0.1
+  lookAwayAngleThreshold: 60
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +495,7 @@ MonoBehaviour:
     - {fileID: 839990790707752679, guid: 681cabfded653c24a979fb5078135d4d, type: 3}
     - {fileID: 1385895054010542438, guid: ba56a3a51856ce840be0a605d16952d1, type: 3}
     roomCount: 300
-  player: {fileID: 0}
+  player: {fileID: 132896000884410931}
   roomParent: {fileID: 26354201}
   hallwayParent: {fileID: 1861800041}
   gridSize: 4
@@ -765,7 +820,7 @@ GameObject:
   - component: {fileID: 847649107}
   - component: {fileID: 847649106}
   - component: {fileID: 847649105}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1005,10 +1060,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1600107237}
+  - component: {fileID: 1600107238}
   - component: {fileID: 1600107236}
   - component: {fileID: 1600107235}
+  - component: {fileID: 1600107239}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: Quad_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,6 +1139,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1505124147}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
+--- !u!114 &1600107238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600107234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e529f9e846ff2499c8c1798ecd4276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedPortal: {fileID: 200900061}
+  portalSurface: {fileID: 1600107237}
+  exitOffset: 0.3
+  exitYOffset: 0
+  preserveVelocity: 0
+  rotateCameraDuration: 0.3
+  pauseRotation: 0
+  onTeleport:
+    m_PersistentCalls:
+      m_Calls: []
+  onTeleportDelay: 0
+  onPlayerLookAway:
+    m_PersistentCalls:
+      m_Calls: []
+  triggerEventOnEnter: 0
+  immediateCheck: 0
+  watchTarget: {fileID: 0}
+  lookCheckInterval: 0.1
+  lookAwayAngleThreshold: 60
+--- !u!64 &1600107239
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600107234}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1630177711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,7 +1203,6 @@ GameObject:
   - component: {fileID: 1630177712}
   - component: {fileID: 1630177716}
   - component: {fileID: 1630177715}
-  - component: {fileID: 1630177714}
   - component: {fileID: 1630177713}
   m_Layer: 0
   m_Name: Camera_B
@@ -1161,14 +1270,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1630177714
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630177711}
-  m_Enabled: 1
 --- !u!20 &1630177715
 Camera:
   m_ObjectHideFlags: 0
@@ -1307,7 +1408,6 @@ GameObject:
   - component: {fileID: 2026052513}
   - component: {fileID: 2026052517}
   - component: {fileID: 2026052516}
-  - component: {fileID: 2026052515}
   - component: {fileID: 2026052514}
   m_Layer: 0
   m_Name: Camera_A
@@ -1375,14 +1475,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &2026052515
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026052512}
-  m_Enabled: 1
 --- !u!20 &2026052516
 Camera:
   m_ObjectHideFlags: 0
@@ -1610,7 +1702,7 @@ Transform:
   m_GameObject: {fileID: 132896000884410931}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3466642, y: -0.9501835, z: -7.5832667}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
