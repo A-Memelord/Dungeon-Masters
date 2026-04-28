@@ -17,7 +17,6 @@ public class PortalCamera : MonoBehaviour
 
         // Auto create render texture
         renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
-        renderTexture.filterMode = FilterMode.Point;
         portalCamera.targetTexture = renderTexture;
         portalCamera.enabled = true;
 

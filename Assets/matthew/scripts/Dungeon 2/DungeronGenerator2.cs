@@ -13,6 +13,7 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 public class DungeronGenerator2 : MonoBehaviour
 {
     public Region[] regions;
+    public GameObject[] hallways;
 
     public GameObject player;
     public GameObject roomParent;
@@ -27,6 +28,7 @@ public class DungeronGenerator2 : MonoBehaviour
     public Material lineMat;
     private List<Bounds> _allBounds = new();
 
+    // gets random room in regions
     GameObject GetRandomRoom(Region region)
     {
         int randomIndex = Random.Range(0, region.rooms.Length);
@@ -34,6 +36,7 @@ public class DungeronGenerator2 : MonoBehaviour
         return region.rooms[randomIndex];
     }
 
+    // gets random rotation for rooms
     Quaternion GetRandomRotation()
     {
         int[] rotations = new int[] { 0, 90, 180, 270 };
@@ -42,6 +45,7 @@ public class DungeronGenerator2 : MonoBehaviour
         return Quaternion.Euler(0, rotation, 0);
     }
 
+    // gets random position for rooms
     Vector3 GetRandomPosition(Region region, Vector3 size)
     {
         float spawnPointX = Mathf.RoundToInt(Random.Range(region.bounds.min.x, region.bounds.max.x) / gridSize) * gridSize;
@@ -71,6 +75,13 @@ public class DungeronGenerator2 : MonoBehaviour
         }
 
 
+    }
+
+    GameObject GetRandomHallway()
+    {
+        int randomIndex = Random.Range(0, hallways.Length);
+
+        return hallways[randomIndex];
     }
 
     void Update()
@@ -153,6 +164,10 @@ public class DungeronGenerator2 : MonoBehaviour
 
                 DestroyImmediate(door);
                 DestroyImmediate(nextDoor);
+                for (int i = 0; i < allDoors.Count; i++)
+                {
+                    GetRandomHallway();
+                }
             }
         }
 
