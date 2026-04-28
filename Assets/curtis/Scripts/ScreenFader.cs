@@ -35,6 +35,6 @@ public class ScreenFader : MonoBehaviour
 
     void Update()
     {
-        if (M.)       
+   //     if (M.)       
     }
 }
