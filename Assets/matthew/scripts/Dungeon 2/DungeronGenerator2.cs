@@ -77,13 +77,6 @@ public class DungeronGenerator2 : MonoBehaviour
 
     }
 
-    GameObject GetRandomHallway()
-    {
-        int randomIndex = Random.Range(0, hallways.Length);
-
-        return hallways[randomIndex];
-    }
-
     void Update()
     {
         if (stressTestDungeonGen == true)
@@ -136,9 +129,6 @@ public class DungeronGenerator2 : MonoBehaviour
         List<Door> allDoors = FindObjectsByType<Door>(FindObjectsSortMode.None)
             .ToList();
 
-        //int randomIndex = Random.Range(0, allDoors.Count);
-        //allDoors.RemoveAt(randomIndex);
-
         // Generate all corridors between rooms.
         foreach (var room in allRooms)
         {
@@ -164,10 +154,6 @@ public class DungeronGenerator2 : MonoBehaviour
 
                 DestroyImmediate(door);
                 DestroyImmediate(nextDoor);
-                for (int i = 0; i < allDoors.Count; i++)
-                {
-                    GetRandomHallway();
-                }
             }
         }
 
@@ -182,23 +168,29 @@ public class DungeronGenerator2 : MonoBehaviour
 
     private void CreateCorridor(Door doorA, Door doorB)
     {
-        GameObject line = new();
-        LineRenderer lr = line.AddComponent<LineRenderer>();
-        line.transform.SetParent(hallwayParent.transform);
+        //GameObject line = new();
+        //LineRenderer lr = line.AddComponent<LineRenderer>();
+        //line.transform.SetParent(hallwayParent.transform);
 
         Vector3[] positions = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
             GenerateCornerCorridor(doorA, doorB) : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
             GenerateHorizontalCorridor(doorA, doorB) :
             GenerateVerticalCorridor(doorA, doorB);
         
-        lr.endColor = lr.startColor = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
-            Color.yellow : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
-            Color.red :
-            Color.blue;
-        lr.material = lineMat;
+        //lr.endColor = lr.startColor = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
+        //    Color.yellow : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
+        //    Color.red :
+        //    Color.blue;
+        //lr.material = lineMat;
 
-        lr.positionCount = positions.Length;
-        lr.SetPositions(positions);
+        doorA.GetComponentInChildren<PortalTeleport>().linkedPortal = doorB.GetComponentInChildren<PortalTeleport>();
+        doorA.GetComponentInChildren<PortalCamera>().otherPortal = doorB.GetComponentInChildren<PortalTeleport>().transform;
+
+        doorB.GetComponentInChildren<PortalTeleport>().linkedPortal = doorA.GetComponentInChildren<PortalTeleport>();
+        doorB.GetComponentInChildren<PortalCamera>().otherPortal = doorA.GetComponentInChildren<PortalTeleport>().transform;
+
+    //    lr.positionCount = positions.Length;
+    //    lr.SetPositions(positions);
     }
 
     private Vector3[] GenerateHorizontalCorridor(Door doorA, Door doorB)

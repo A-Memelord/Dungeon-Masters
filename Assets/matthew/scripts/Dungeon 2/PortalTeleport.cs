@@ -68,7 +68,7 @@ public class PortalTeleport : MonoBehaviour
             StopCoroutine(lookCheckCoroutine);
     }
 
-    void Enable()
+    void OnEnable()
     {
         if (gameObject.activeInHierarchy && !triggerEventOnEnter)
             lookCheckCoroutine = StartCoroutine(LookAwayChecker());
