@@ -37,6 +37,7 @@ public class PortalTeleport : MonoBehaviour
     private const float COOLDOWN_TIME = 0.1f;
 
     private MeshRenderer meshRenderer;
+    private PortalCamera portalCam;
     private PlayerCam cachedCamScript;
     private Camera mainCam;
 
@@ -46,6 +47,8 @@ public class PortalTeleport : MonoBehaviour
     void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+        portalCam = transform.parent.GetComponentInChildren<PortalCamera>();
+
         if (Camera.main != null)
         {
             mainCam = Camera.main;
@@ -89,7 +92,15 @@ public class PortalTeleport : MonoBehaviour
             bool isVisible = IsPortalVisible(target);
 
             if (wasVisible && !isVisible)
+            {
                 onPlayerLookAway?.Invoke();
+
+                
+            }
+            if (isVisible)
+                portalCam.gameObject.SetActive(true);
+            else
+                portalCam.gameObject.SetActive(false);
 
             wasVisible = isVisible;
         }

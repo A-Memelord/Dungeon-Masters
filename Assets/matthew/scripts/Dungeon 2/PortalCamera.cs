@@ -9,16 +9,16 @@ public class PortalCamera : MonoBehaviour
 
     private Camera mainCamera;
     private Camera portalCamera;
-    private RenderTexture renderTexture;
+    [HideInInspector] public RenderTexture renderTexture;
     public Shader portalShader;
 
     void Start()
     {
-#if UNITY_EDITOR
-        mainCamera = Camera.current;
-#else
+ //#if UNITY_EDITOR
+ //        mainCamera = Camera.current;
+ //#else
         mainCamera = Camera.main;
-#endif
+ //#endif
 
         portalCamera = GetComponent<Camera>();
 
