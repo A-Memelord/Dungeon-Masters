@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteAlways]
 public class PortalCamera : MonoBehaviour
 {
     [Header("Portal Pair")]
@@ -9,20 +10,26 @@ public class PortalCamera : MonoBehaviour
     private Camera mainCamera;
     private Camera portalCamera;
     private RenderTexture renderTexture;
+    public Shader portalShader;
 
     void Start()
     {
+#if UNITY_EDITOR
+        mainCamera = Camera.current;
+#else
         mainCamera = Camera.main;
+#endif
+
         portalCamera = GetComponent<Camera>();
 
         // Auto create render texture
         renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
-        renderTexture.filterMode = FilterMode.Point;
         portalCamera.targetTexture = renderTexture;
         portalCamera.enabled = true;
 
         // Auto assign to this portal's quad material
         MeshRenderer quad = thisPortal.GetComponentInChildren<MeshRenderer>();
+        quad.material = new Material(portalShader);
         quad.material.SetTexture("_MainTex", renderTexture);
     }
 
