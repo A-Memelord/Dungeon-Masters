@@ -59,7 +59,8 @@ public class Cards : MonoBehaviour
 
         if (transform.GetChild(transform.childCount - 1).TryGetComponent(out UiCard uiCard))
         {
-            uiCard.card.onUse.Invoke(GameObject.FindWithTag("Player"));
+            var player = GameObject.FindWithTag("Player");
+            uiCard.card?.Use(player); 
         }
         DestroyFirstObject();
     }

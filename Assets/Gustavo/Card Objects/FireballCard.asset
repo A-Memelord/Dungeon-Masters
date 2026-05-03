@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f04bf160158f974c90b2ea326111c1d, type: 3}
-  m_Name: Fire
+  m_Script: {fileID: 11500000, guid: 0bafd20571ee3164aa50392efc5974b5, type: 3}
+  m_Name: FireballCard
   m_EditorClassIdentifier: 
   onUse:
     m_PersistentCalls:
@@ -18,5 +18,11 @@ MonoBehaviour:
   onUpdate:
     m_PersistentCalls:
       m_Calls: []
-  sprite: {fileID: 1112151230, guid: 7b7da8141512fa04ebd82b87026f54e5, type: 3}
-  animatorController: {fileID: 9100000, guid: b9cb8aec31039e046b7e735cca87e6d0, type: 2}
+  sprite: {fileID: 0}
+  animatorController: {fileID: 0}
+  statusEffect: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 12
+  projectileLifetime: 5
+  damage: 25
+  burnEffect: {fileID: 0}

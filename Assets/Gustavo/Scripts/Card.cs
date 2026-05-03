@@ -9,14 +9,11 @@ public class Card : ScriptableObject
     public Sprite sprite;
     public RuntimeAnimatorController animatorController;
     public StatusEffectData statusEffect;
-   
+
     
-
-
-
-
-
-
-
-
+    public virtual void Use(GameObject user)
+    {
+        
+        onUse?.Invoke(user);
+    }
 }
