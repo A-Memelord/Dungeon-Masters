@@ -18,11 +18,12 @@ MonoBehaviour:
   onUpdate:
     m_PersistentCalls:
       m_Calls: []
-  sprite: {fileID: 0}
-  animatorController: {fileID: 0}
+  sprite: {fileID: 1112151230, guid: 7b7da8141512fa04ebd82b87026f54e5, type: 3}
+  animatorController: {fileID: 9100000, guid: b9cb8aec31039e046b7e735cca87e6d0, type: 2}
   statusEffect: {fileID: 0}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 5429815002890014325, guid: 9fac0e7d2d9612e4991f561e171a8822, type: 3}
   projectileSpeed: 12
   projectileLifetime: 5
   damage: 25
-  burnEffect: {fileID: 0}
+  burnEffect: {fileID: 11400000, guid: c54f0e4a81710744490647f202055dc5, type: 2}
+  firePointName: FirePoint

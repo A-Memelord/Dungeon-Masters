@@ -1,140 +1,126 @@
-
+using System;
 using UnityEngine;
 
-// Handles showing a ground indicator while the player aims and spawning the lightning strike on release.
-// Use: created at runtime by LightningCard.Use(...)
+// Responsible for showing a world-space indicator where the player is aiming.
+// Call BeginAim(...) to start an aiming session. Will invoke onConfirm when player presses Fire1 / left-click.
 public class LightningAimer : MonoBehaviour
 {
-    [HideInInspector] public GameObject IndicatorPrefab;
-    [HideInInspector] public GameObject LightningPrefab;
-    [HideInInspector] public GameObject Owner;
-    [HideInInspector] public float MaxRange = 20f;
-    [HideInInspector] public LayerMask GroundLayer = ~0;
-    [HideInInspector] public float SpawnHeightOffset = 0.1f;
-
-    // strike properties
-    [HideInInspector] public float StrikeRadius = 3f;
-    [HideInInspector] public float Damage = 40f;
-    [HideInInspector] public StatusEffectData StatusEffect;
-
-    private GameObject _indicatorInstance;
     private Camera _cam;
+    private GameObject _indicatorInstance;
+    private GameObject _indicatorPrefab;
     private bool _isAiming;
+    private float _maxDistance = 30f;
+    private Action<Vector3, Vector3> _onConfirm;
+    private GameObject _user; // used to compute spawn position (firepoint or camera)
 
-    void Start()
+    public void BeginAim(GameObject user, GameObject indicatorPrefab, float maxDistance, Action<Vector3, Vector3> onConfirm)
     {
-        _cam = Camera.main ?? Owner?.GetComponentInChildren<Camera>();
-        if (IndicatorPrefab != null)
-        {
-            _indicatorInstance = Instantiate(IndicatorPrefab);
-            _indicatorInstance.SetActive(false);
-        }
-
-        // start aiming immediately
+        _user = user;
+        _indicatorPrefab = indicatorPrefab;
+        _maxDistance = maxDistance;
+        _onConfirm = onConfirm;
         _isAiming = true;
 
-        // optionally lock cursor or UI here if desired
+        _cam = Camera.main ?? GetComponentInChildren<Camera>() ?? GetComponent<Camera>();
+        if (_indicatorPrefab != null)
+        {
+            _indicatorInstance = Instantiate(_indicatorPrefab);
+        }
+        else
+        {
+            // Create a simple fallback indicator if none was provided
+            _indicatorInstance = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _indicatorInstance.transform.localScale = Vector3.one * 0.25f;
+            var col = _indicatorInstance.GetComponent<Collider>();
+            if (col != null) Destroy(col);
+        }
     }
 
     void Update()
     {
         if (!_isAiming) return;
 
-        // update indicator position
+        if (_cam == null)
+            _cam = Camera.main ?? GetComponentInChildren<Camera>() ?? GetComponent<Camera>();
+
+        if (_cam == null) return;
+
+        // Raycast from camera forward to place the indicator
+        Ray ray = new Ray(_cam.transform.position, _cam.transform.forward);
+        RaycastHit hit;
         Vector3 aimPoint;
-        bool valid = ComputeAimPoint(out aimPoint);
-
-        if (_indicatorInstance != null)
+        if (Physics.Raycast(ray, out hit, _maxDistance))
         {
-            _indicatorInstance.SetActive(valid);
-            if (valid)
-            {
-                _indicatorInstance.transform.position = aimPoint + Vector3.up * SpawnHeightOffset;
-                // ensure indicator faces up
-                _indicatorInstance.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-            }
-        }
-
-        // If user releases primary fire (left mouse button), confirm strike.
-        // This uses the legacy Input system for simplicity. If you use the new Input System, replace with your action checks.
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (valid)
-                SpawnStrikeAt(aimPoint);
-            EndAiming();
-        }
-
-        // cancel on right click or Escape
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
-        {
-            EndAiming();
-        }
-    }
-
-    private bool ComputeAimPoint(out Vector3 worldPoint)
-    {
-        worldPoint = Vector3.zero;
-
-        // Prefer using the mouse position projected to world (great for mouse/keyboard).
-        if (_cam != null)
-        {
-            Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, MaxRange, GroundLayer, QueryTriggerInteraction.Ignore))
-            {
-                worldPoint = hit.point;
-                return true;
-            }
-
-            // If nothing hit, project a point forward at max range and try a downward ray to ground
-            Vector3 forwardPoint = ray.origin + ray.direction.normalized * MaxRange;
-            if (Physics.Raycast(forwardPoint + Vector3.up * 10f, Vector3.down, out hit, 50f, GroundLayer, QueryTriggerInteraction.Ignore))
-            {
-                worldPoint = hit.point;
-                return true;
-            }
-        }
-
-        // Fallback: use owner's forward if camera/mouse unavailable
-        if (Owner != null)
-        {
-            Vector3 origin = Owner.transform.position + Vector3.up * 1f;
-            if (Physics.Raycast(origin, Owner.transform.forward, out RaycastHit hit2, MaxRange, GroundLayer, QueryTriggerInteraction.Ignore))
-            {
-                worldPoint = hit2.point;
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void SpawnStrikeAt(Vector3 pos)
-    {
-        if (LightningPrefab == null) return;
-
-        var strike = Instantiate(LightningPrefab, pos + Vector3.up * SpawnHeightOffset, Quaternion.identity);
-        // configure strike (expects LightningProjectile-like behaviour)
-        var lp = strike.GetComponent<LightningProjectile>();
-        if (lp != null)
-        {
-            lp.Initialize(Damage, StrikeRadius, StatusEffect, Owner);
+            aimPoint = hit.point;
         }
         else
         {
-            // try generic: attach LightningProjectile dynamically if prefab missing it
-            var dyn = strike.AddComponent<LightningProjectile>();
-            dyn.Initialize(Damage, StrikeRadius, StatusEffect, Owner);
+            aimPoint = _cam.transform.position + _cam.transform.forward * _maxDistance;
+        }
+
+        if (_indicatorInstance != null)
+        {
+            _indicatorInstance.transform.position = aimPoint;
+            _indicatorInstance.transform.rotation = Quaternion.LookRotation(_cam.transform.up, Vector3.up);
+        }
+
+        // Confirm input: left mouse or Fire1 (works with keyboard/controller)
+        if (Input.GetButtonDown("Fire1") || Input.GetMouseButtonDown(0))
+        {
+            // Determine spawn origin: prefer PlayerFirePoint on user, else camera position
+            Vector3 aimOrigin;
+            Transform firePointTransform = null;
+            if (_user != null)
+            {
+                var pfp = _user.GetComponent<PlayerFirePoint>();
+                if (pfp != null) firePointTransform = pfp.GetFirePoint();
+                if (firePointTransform == null)
+                {
+                    var found = _user.transform.Find("FirePoint");
+                    if (found != null) firePointTransform = found;
+                }
+            }
+
+            if (firePointTransform != null)
+            {
+                aimOrigin = firePointTransform.position;
+            }
+            else
+            {
+                aimOrigin = _cam.transform.position;
+            }
+
+            Vector3 aimDirection = (aimPoint - aimOrigin).normalized;
+
+            _onConfirm?.Invoke(aimOrigin, aimDirection);
+            EndAim();
+        }
+
+        // Cancel input: Escape / right mouse
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
+        {
+            EndAim();
         }
     }
 
-    private void EndAiming()
+    private void EndAim()
     {
-        if (_indicatorInstance != null) Destroy(_indicatorInstance);
-        Destroy(gameObject);
+        _isAiming = false;
+        _onConfirm = null;
+        if (_indicatorInstance != null)
+        {
+            Destroy(_indicatorInstance);
+            _indicatorInstance = null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        EndAim();
     }
 
     private void OnDestroy()
     {
-        if (_indicatorInstance != null) Destroy(_indicatorInstance);
+        EndAim();
     }
 }

@@ -9,11 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f04bf160158f974c90b2ea326111c1d, type: 3}
-  m_Name: Electricity
+  m_Script: {fileID: 11500000, guid: 8b2a3ec824b4dd040b2c15397b58b371, type: 3}
+  m_Name: LightningCard
   m_EditorClassIdentifier: 
   onUse:
     m_PersistentCalls:
       m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   sprite: {fileID: 71714555, guid: 73af601f5469f264ba9f789fe65d964d, type: 3}
   animatorController: {fileID: 9100000, guid: d46e9a8b0d93eb04b9d45e77d35bceb8, type: 2}
+  statusEffect: {fileID: 0}
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 18
+  projectileLifetime: 4
+  damage: 40
+  stunDuration: 2
+  indicatorPrefab: {fileID: 0}
+  aimMaxDistance: 50
+  firePointName: FirePoint

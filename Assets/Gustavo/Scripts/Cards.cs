@@ -60,9 +60,14 @@ public class Cards : MonoBehaviour
         if (transform.GetChild(transform.childCount - 1).TryGetComponent(out UiCard uiCard))
         {
             var player = GameObject.FindWithTag("Player");
-            uiCard.card?.Use(player); 
+
+            // Let the UiCard handle decrementing uses. Only remove when depleted.
+            bool shouldDestroy = uiCard.Use(player);
+            if (shouldDestroy)
+            {
+                DestroyFirstObject();
+            }
         }
-        DestroyFirstObject();
     }
 
     

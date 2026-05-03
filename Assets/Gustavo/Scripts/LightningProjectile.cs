@@ -1,69 +1,136 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-// Lightning strike behaviour: apply instant area damage and optional status effect, then spawn particles and self-destruct.
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class LightningProjectile : MonoBehaviour
 {
-    private float _damage = 40f;
-    private float _radius = 3f;
-    private StatusEffectData _statusEffect;
+    private float _speed = 15f;
+    private float _damage = 15f;
+    private float _lifetime = 4f;
+    private float _stunDuration = 1.5f;
     private GameObject _owner;
-    private float _lifeTime = 1f;
     private float _spawnTime;
+    private Collider _coll;
+    private Rigidbody _rb;
+    private Collider[] _ownerColliders;
 
-    // Initialize called by LightningAimer after instantiation
-    public void Initialize(float damage, float radius, StatusEffectData statusEffect, GameObject owner = null)
+    // piercing state (can be adjusted if desired)
+    private int _pierceRemaining = 1;
+    private HashSet<int> _hitIds = new HashSet<int>();
+
+    private void Awake()
+    {
+        _coll = GetComponent<Collider>();
+        _rb = GetComponent<Rigidbody>();
+
+        if (_rb != null)
+        {
+            _rb.useGravity = false;
+            _rb.interpolation = RigidbodyInterpolation.Interpolate;
+            _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        }
+
+        if (_coll != null) _coll.isTrigger = true;
+    }
+
+    // Initialize with stunDuration added
+    public void Initialize(float damage, float speed, float lifetime, float stunDuration, GameObject owner = null, int pierceCount = 1)
     {
         _damage = damage;
-        _radius = radius;
-        _statusEffect = statusEffect;
+        _speed = speed;
+        _lifetime = lifetime;
+        _stunDuration = stunDuration;
         _owner = owner;
         _spawnTime = Time.time;
 
-        // run the strike immediately
-        Strike();
+        _pierceRemaining = Mathf.Max(0, pierceCount);
+        _hitIds.Clear();
 
-        // optionally destroy after a short time so particles can play
-        Destroy(gameObject, _lifeTime);
-    }
-
-    private void Strike()
-    {
-        // spawn effect particles if provided by statusEffect
-        if (_statusEffect != null && _statusEffect.Effectparticles != null)
+        if (_coll == null) _coll = GetComponent<Collider>();
+        if (_rb == null) _rb = GetComponent<Rigidbody>();
+        if (_coll != null) _coll.isTrigger = true;
+        if (_rb != null)
         {
-            var p = Instantiate(_statusEffect.Effectparticles, transform.position, Quaternion.identity);
-            // parent to the strike so destruction cleans it up if desired
-            p.transform.SetParent(transform);
+            _rb.useGravity = false;
+            _rb.interpolation = RigidbodyInterpolation.Interpolate;
+            _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
 
-        // overlap sphere to find targets
-        Collider[] hits = Physics.OverlapSphere(transform.position, _radius);
-        foreach (var c in hits)
+        if (_owner != null && _coll != null)
         {
-            if (_owner != null)
+            _ownerColliders = _owner.GetComponentsInChildren<Collider>();
+            foreach (var oc in _ownerColliders)
             {
-                if (c.gameObject == _owner) continue;
-                if (c.transform.IsChildOf(_owner.transform)) continue;
+                if (oc != null)
+                    Physics.IgnoreCollision(_coll, oc, true);
             }
+        }
 
-            if (c.TryGetComponent<Health>(out var health))
-            {
-                health.TakeDamage(_damage);
-                if (_statusEffect != null) health.ApplyEffect(_statusEffect);
-            }
-            else if (c.TryGetComponent<Enemy>(out var enemy))
-            {
-                enemy.health -= _damage;
-                if (_statusEffect != null) enemy.ApplyEffect(_statusEffect);
-            }
+        if (_rb != null)
+        {
+            // keep the style consistent with existing projectile code in the project
+            _rb.linearVelocity = transform.forward * _speed;
         }
     }
 
-    // optional: visualize radius in editor
-    private void OnDrawGizmosSelected()
+    private void Update()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, _radius);
+        if (Time.time - _spawnTime >= _lifetime)
+            Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // ignore owner and owner's children
+        if (_owner != null)
+        {
+            if (other.gameObject == _owner) return;
+            if (other.transform.IsChildOf(_owner.transform)) return;
+        }
+
+        // Try to find a damageable component on the collider or its parents.
+        var health = other.GetComponentInParent<Health>();
+        if (health != null)
+        {
+            int id = health.gameObject.GetInstanceID();
+            if (_hitIds.Contains(id)) return;
+
+            health.TakeDamage(_damage);
+
+            _hitIds.Add(id);
+            _pierceRemaining--;
+
+            if (_pierceRemaining <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            return;
+        }
+
+        //var enemy = other.GetComponentInParent<Enemy>();
+        //if (enemy != null)
+        //{
+        //    int id = enemy.gameObject.GetInstanceID();
+        //    if (_hitIds.Contains(id)) return;
+
+        //    enemy.health -= _damage;
+
+        //    // apply stun if available
+        //    enemy.Stun(_stunDuration);
+
+        //    _hitIds.Add(id);
+        //    _pierceRemaining--;
+
+        //    if (_pierceRemaining <= 0)
+        //    {
+        //        Destroy(gameObject);
+        //    }
+
+        //    return;
+        //}
+
+        // Any hit that is not a damageable target (walls, scenery) destroys the projectile immediately
+        Destroy(gameObject);
     }
 }

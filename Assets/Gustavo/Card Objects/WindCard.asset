@@ -9,11 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f04bf160158f974c90b2ea326111c1d, type: 3}
-  m_Name: Wind
+  m_Script: {fileID: 11500000, guid: 752d06a81083a9042aede4f76a236b9f, type: 3}
+  m_Name: WindCard
   m_EditorClassIdentifier: 
   onUse:
     m_PersistentCalls:
       m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
   sprite: {fileID: -1610675503, guid: e6a9e9a28e3bfc84cbe30f517add2d59, type: 3}
   animatorController: {fileID: 9100000, guid: e18be9bace963354abdd1737df9162b3, type: 2}
+  statusEffect: {fileID: 0}
+  projectilePrefab: {fileID: 4403830319394932542, guid: 5909e3107a93bb249bd4223c005f03d8, type: 3}
+  projectileSpeed: 12
+  projectileLifetime: 5
+  damage: 0
+  pushForce: 6
+  stunDuration: 1.5
+  firePointName: FirePoint

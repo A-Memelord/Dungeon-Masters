@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
@@ -12,6 +13,10 @@ public class FireballProjectile : MonoBehaviour
     private Collider _coll;
     private Rigidbody _rb;
     private Collider[] _ownerColliders;
+
+    // piercing state
+    private int _pierceRemaining = 3;
+    private HashSet<int> _hitIds = new HashSet<int>();
 
     private void Awake()
     {
@@ -29,7 +34,8 @@ public class FireballProjectile : MonoBehaviour
         if (_coll != null) _coll.isTrigger = true;
     }
 
-    public void Initialize(float damage, float speed, float lifetime, StatusEffectData statusEffect, GameObject owner = null)
+    // Added optional pierceCount (defaults to 3)
+    public void Initialize(float damage, float speed, float lifetime, StatusEffectData statusEffect, GameObject owner = null, int pierceCount = 3)
     {
         _damage = damage;
         _speed = speed;
@@ -37,6 +43,10 @@ public class FireballProjectile : MonoBehaviour
         _statusEffect = statusEffect;
         _owner = owner;
         _spawnTime = Time.time;
+
+        // initialize pierce state
+        _pierceRemaining = Mathf.Max(0, pierceCount);
+        _hitIds.Clear();
 
         // ensure components exist (Initialize may be called before Awake if prefab instantiated inactive)
         if (_coll == null) _coll = GetComponent<Collider>();
@@ -82,22 +92,49 @@ public class FireballProjectile : MonoBehaviour
             if (other.transform.IsChildOf(_owner.transform)) return;
         }
 
-        if (other.TryGetComponent<Health>(out var health))
+        // Try to find a damageable component on the collider or its parents.
+        var health = other.GetComponentInParent<Health>();
+        if (health != null)
         {
+            int id = health.gameObject.GetInstanceID();
+            if (_hitIds.Contains(id)) return;
+
             health.TakeDamage(_damage);
             if (_statusEffect != null) health.ApplyEffect(_statusEffect);
-            Destroy(gameObject);
+
+            _hitIds.Add(id);
+            _pierceRemaining--;
+
+            if (_pierceRemaining <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            // pierced through this damageable target — keep going if pierce remaining > 0
             return;
         }
 
-        if (other.TryGetComponent<Enemy>(out var enemy))
+        var enemy = other.GetComponentInParent<Health>();
+        if (enemy != null)
         {
-            enemy.health -= _damage;
+            int id = enemy.gameObject.GetInstanceID();
+            if (_hitIds.Contains(id)) return;
+
+            enemy.TakeDamage(_damage);
             if (_statusEffect != null) enemy.ApplyEffect(_statusEffect);
-            Destroy(gameObject);
+
+            _hitIds.Add(id);
+            _pierceRemaining--;
+
+            if (_pierceRemaining <= 0)
+            {
+                Destroy(gameObject);
+            }
+
             return;
         }
 
+        // Any hit that is not a damageable target (walls, scenery) destroys the projectile immediately
         Destroy(gameObject);
     }
 }

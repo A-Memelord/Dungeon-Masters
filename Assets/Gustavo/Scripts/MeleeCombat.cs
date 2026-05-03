@@ -129,10 +129,10 @@ public class MeleeCombat : MonoBehaviour
 
         int damage = GetCurrentAttackDamage();
         
-        var enemy = hit.collider.GetComponentInParent<Enemy>();
+        var enemy = hit.collider.GetComponentInParent<Health>();
         if (enemy != null)
         {
-            enemy.health -= damage;
+            enemy.TakeDamage(damage);
             Debug.Log($"Melee hit Enemy (-{damage}). Remaining health: {enemy.health}");
             SpawnVFXAtPoint(hit.point, hit.normal);
             return true;

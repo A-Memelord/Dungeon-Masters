@@ -6,8 +6,8 @@ public class Health : MonoBehaviour, IEffectable
     private float maxHealth;
 
     private StatusEffectData _data;
+    private float _stunEndTime = 0f;
 
-    
     public float health => currentHealth;
 
     public void ApplyEffect(StatusEffectData _data)
@@ -81,5 +81,11 @@ public class Health : MonoBehaviour, IEffectable
         }
 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
+    public void Stun(float duration)
+    {
+        if (duration <= 0f) return;
+        _stunEndTime = Time.time + duration;
     }
 }

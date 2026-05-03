@@ -13,6 +13,10 @@ public class UiCard : MonoBehaviour
     [SerializeField] private float shakeFrequency = 20f;  // speed 
     [SerializeField] private bool createVisualChild = true;
 
+    [Header("Usage")]
+    [SerializeField] private int maxUses = 3; // number of times this card can be used before removed
+    private int _usesRemaining;
+
     private RectTransform _rectTransform;
     private RectTransform _visualRect;     
     private Image _parentImage;
@@ -31,6 +35,9 @@ public class UiCard : MonoBehaviour
 
     void Start()
     {
+        // initialize uses for this UiCard instance
+        _usesRemaining = maxUses;
+
         ApplyVisuals();
         ApplyCardEffect();
         StartShakeIfNeeded();
@@ -142,9 +149,23 @@ public class UiCard : MonoBehaviour
 
     public void Assign()
     {
+        // reset uses when assigned
+        _usesRemaining = maxUses;
+
         ApplyVisuals();
         ApplyCardEffect();
         StartShakeIfNeeded();
+    }
+
+    // Returns true if the card is depleted and should be removed
+    public bool Use(GameObject user)
+    {
+        if (card != null)
+            card.Use(user);
+
+        _usesRemaining = Mathf.Max(0, _usesRemaining - 1);
+
+        return _usesRemaining <= 0;
     }
 
     private void OnValidate()
