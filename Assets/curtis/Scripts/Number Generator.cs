@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Shop : MonoBehaviour, IInteractable
@@ -6,6 +7,7 @@ public class Shop : MonoBehaviour, IInteractable
     public AudioSource shop;
     public AudioClip[] randomOpening;
     public AudioClip[] randomClosing;
+    public Animator anim;
 
     public void Interact()
     {
@@ -27,7 +29,10 @@ public class Shop : MonoBehaviour, IInteractable
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         shopUI.SetActive(true);
-        shop.PlayOneShot(randomOpening[Random.Range(0, randomOpening.Length)]);
+        AudioClip clip = randomOpening[Random.Range(0, randomOpening.Length)];
+        shop.PlayOneShot(clip);
+        StartCoroutine(Talking(clip));
+        anim.Play("Goblin Talking");
     }
 
     public void DeactivateObject()
@@ -35,6 +40,18 @@ public class Shop : MonoBehaviour, IInteractable
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         shopUI.SetActive(false);
-        shop.PlayOneShot(randomClosing[Random.Range(0, randomClosing.Length)]);
+        AudioClip clip = randomClosing[Random.Range(0, randomClosing.Length)];
+        shop.PlayOneShot(clip);
+        StartCoroutine(Talking(clip));
+        anim.Play("Goblin talking");
+    }
+
+    private IEnumerator Talking(AudioClip clip)
+    {
+            anim.SetBool("isTalking", true);
+
+        yield return new WaitForSeconds(clip.length);
+
+            anim.SetBool("isTalking", false); 
     }
 }

@@ -1,20 +1,52 @@
 using UnityEngine;
 
+[ExecuteAlways]
 public class PortalCamera : MonoBehaviour
 {
-    public Transform playerCam;
-    public Transform portal;
+    [Header("Portal Pair")]
+    public Transform thisPortal;
     public Transform otherPortal;
+
+    private Camera mainCamera;
+    private Camera portalCamera;
+    [HideInInspector] public RenderTexture renderTexture;
+    public Shader portalShader;
+
+    void Start()
+    {
+ //#if UNITY_EDITOR
+ //        mainCamera = Camera.current;
+ //#else
+        mainCamera = Camera.main;
+ //#endif
+
+        portalCamera = GetComponent<Camera>();
+
+        // Auto create render texture
+        renderTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        portalCamera.targetTexture = renderTexture;
+        portalCamera.enabled = true;
+
+        // Auto assign to this portal's quad material
+        MeshRenderer quad = thisPortal.GetComponentInChildren<MeshRenderer>();
+        quad.material = new Material(portalShader);
+        quad.material.SetTexture("_MainTex", renderTexture);
+    }
 
     void Update()
     {
-        Vector3 playerOffsetFromPortal = playerCam.position - otherPortal.position;
-        transform.position = portal.position + playerOffsetFromPortal;
+        if (mainCamera == null || thisPortal == null || otherPortal == null) return;
+        
+        // Only Render when portal is visible to main camera
+        Renderer portalRenderer = thisPortal.GetComponentInChildren<Renderer>();
+        portalCamera.enabled = portalRenderer.isVisible;
 
-        float angularDifferenceBetweenPortalRotations = Quaternion.Angle(portal.rotation, otherPortal.rotation);
+        Matrix4x4 m = thisPortal.worldToLocalMatrix * mainCamera.transform.localToWorldMatrix;
+        Matrix4x4 flip = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 180, 0), Vector3.one);
+        Matrix4x4 result = otherPortal.localToWorldMatrix * flip * m;
 
-        Quaternion portalRotationalDifference = Quaternion.AngleAxis(angularDifferenceBetweenPortalRotations, Vector3.up);
-        Vector3 newCameraDirection = portalRotationalDifference * playerCam.forward;
-        transform.rotation = Quaternion.LookRotation(newCameraDirection, Vector3.up);
+        portalCamera.transform.position = result.MultiplyPoint(Vector3.zero);
+        portalCamera.transform.rotation = result.rotation;
+        portalCamera.projectionMatrix = mainCamera.projectionMatrix;
     }
 }
