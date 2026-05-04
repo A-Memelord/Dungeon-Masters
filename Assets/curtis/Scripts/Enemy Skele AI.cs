@@ -25,6 +25,7 @@ public class EnemySkeleAI : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    public GameObject soul;
 
 
     public float sightRange, attackRange;
@@ -113,6 +114,7 @@ public class EnemySkeleAI : MonoBehaviour
     }
     private void DestroyEnemy()
     {
+        Instantiate(soul, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

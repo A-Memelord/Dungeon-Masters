@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9a662a4ad4945a545bd59beadd9cd961
+guid: c1236c5e696fab143b1d2b3d8d55ba9f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: soulcoreballanimation_0
+      name: Lemme break it down for you Mark_0
       rect:
         serializedVersion: 2
-        x: 77
-        y: 107
-        width: 37
-        height: 51
+        x: 0
+        y: 0
+        width: 314
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,52 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 422de303cab3a2b4188a3a058006ebb0
-      internalID: 1737908557
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: soulcoreballanimation_1
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 108
-        width: 38
-        height: 54
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4bd569c0282417a4f9548779f6767c82
-      internalID: -1104794414
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: soulcoreballanimation_2
-      rect:
-        serializedVersion: 2
-        x: 476
-        y: 108
-        width: 36
-        height: 56
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0134ce2ada7008349aa6205159dbd524
-      internalID: 353138981
+      spriteID: db0e5fb4952bdbc42a78dda29a1377ab
+      internalID: 1959772883
       vertices: []
       indices: 
       edges: []
@@ -192,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 049a506152c9ed4459c9052b879ba64a
+    spriteID: 430bace815d1e6c47b9c573a67c867d6
     internalID: 0
     vertices: []
     indices: 
@@ -202,9 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      soulcoreballanimation_0: 1737908557
-      soulcoreballanimation_1: -1104794414
-      soulcoreballanimation_2: 353138981
+      Lemme break it down for you Mark_0: 1959772883
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
