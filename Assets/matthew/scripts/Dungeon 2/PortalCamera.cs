@@ -14,11 +14,11 @@ public class PortalCamera : MonoBehaviour
 
     void Start()
     {
- //#if UNITY_EDITOR
- //        mainCamera = Camera.current;
- //#else
+//
+//        mainCamera = Camera.current;
+//else
         mainCamera = Camera.main;
- //#endif
+ 
 
         portalCamera = GetComponent<Camera>();
 

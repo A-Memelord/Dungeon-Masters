@@ -24,6 +24,7 @@ public class DungeronGenerator2 : MonoBehaviour
     public float boundsExtra;
     public bool stressTestDungeonGen;
     bool roomsIntersecting;
+    public int dungeonLayer = 1;
 
     public Material lineMat;
     private List<Bounds> _allBounds = new();
@@ -96,7 +97,9 @@ public class DungeronGenerator2 : MonoBehaviour
             newRoom.transform.position = spawnPoint;
             if(roomsIntersecting == true)
             {
-                DestroyImmediate(newRoom);
+                Destroy(newRoom);
+
+
                 roomsIntersecting = false;
             }
             else
@@ -147,13 +150,14 @@ public class DungeronGenerator2 : MonoBehaviour
                 if (nextDoor == null)
                     continue;
 
-                CreateCorridor(door, nextDoor);
+                //CreateCorridor(door, nextDoor);
 
                 allDoors.Remove(door);
                 allDoors.Remove(nextDoor);
 
-                DestroyImmediate(door);
-                DestroyImmediate(nextDoor);
+                Destroy(door);
+                Destroy(nextDoor);
+
             }
         }
 
@@ -183,11 +187,11 @@ public class DungeronGenerator2 : MonoBehaviour
         //    Color.blue;
         //lr.material = lineMat;
 
-        doorA.GetComponentInChildren<PortalTeleport>().linkedPortal = doorB.GetComponentInChildren<PortalTeleport>();
-        doorA.GetComponentInChildren<PortalCamera>().otherPortal = doorB.GetComponentInChildren<PortalTeleport>().transform;
+        //doorA.GetComponentInChildren<PortalTeleport>().linkedPortal = doorB.GetComponentInChildren<PortalTeleport>();
+        //doorA.GetComponentInChildren<PortalCamera>().otherPortal = doorB.GetComponentInChildren<PortalTeleport>().transform;
 
-        doorB.GetComponentInChildren<PortalTeleport>().linkedPortal = doorA.GetComponentInChildren<PortalTeleport>();
-        doorB.GetComponentInChildren<PortalCamera>().otherPortal = doorA.GetComponentInChildren<PortalTeleport>().transform;
+        //doorB.GetComponentInChildren<PortalTeleport>().linkedPortal = doorA.GetComponentInChildren<PortalTeleport>();
+        //doorB.GetComponentInChildren<PortalCamera>().otherPortal = doorA.GetComponentInChildren<PortalTeleport>().transform;
 
     //    lr.positionCount = positions.Length;
     //    lr.SetPositions(positions);
@@ -265,12 +269,21 @@ public class DungeronGenerator2 : MonoBehaviour
 
         for (int i = 0; i < childedRooms; i++)
         {
-            DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+
+            Destroy(roomParent.transform.GetChild(0).gameObject);
+
         }
         for (int i = 0; i < allDoors; i++)
         {
-            DestroyImmediate(hallwayParent.transform.GetChild(0).gameObject);
+
+            Destroy(hallwayParent.transform.GetChild(0).gameObject);
+
         }
+    }
+
+    public void GenNextDungeon()
+    {
+        SpawnAllRooms();
     }
 
     private void OnDrawGizmos()

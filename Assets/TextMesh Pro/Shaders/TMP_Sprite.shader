@@ -117,11 +117,11 @@ Shader "TextMeshPro/Sprite"
                 #if UNITY_UI_CLIP_RECT
 				half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(IN.mask.xy)) * IN.mask.zw);
 				color *= m.x * m.y;
-				#endif
+				
 
 				#ifdef UNITY_UI_ALPHACLIP
 					clip (color.a - 0.001);
-				#endif
+				
 
 				return color;
 			}

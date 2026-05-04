@@ -97,7 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8fc59529822bbfe46b9663c7d6c47fbc, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -746,7 +746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1222720285006163439
 Transform:
   m_ObjectHideFlags: 0
@@ -776,6 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisPortal: {fileID: 7910010708263443913}
   otherPortal: {fileID: 0}
+  renderTexture: {fileID: 0}
   portalShader: {fileID: 4800000, guid: 05bdaf205922a7f4d9ee64c6365f4eaf, type: 3}
 --- !u!20 &69725496870189212
 Camera:
@@ -887,7 +888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7910010708263443913
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ void VertShader(inout appdata_full v, out Input data)
 
 #if USE_DERIVATIVE
 	data.param.y = 1;
-#else
+else
 	float4 vert = v.vertex;
 	float4 vPosition = UnityObjectToClipPos(vert);
 	float2 pixelSize = vPosition.w;
@@ -23,7 +23,7 @@ void VertShader(inout appdata_full v, out Input data)
 	scale *= abs(v.texcoord.w) * _GradientScale * (_Sharpness + 1);
 	scale = lerp(scale * (1 - _PerspectiveFilter), scale, abs(dot(UnityObjectToWorldNormal(v.normal.xyz), normalize(WorldSpaceViewDir(vert)))));
 	data.param.y = scale;
-#endif
+
 
 	data.param.x = (lerp(_WeightNormal, _WeightBold, bold) / 4.0 + _FaceDilate) * _ScaleRatioA * 0.5; //
 	data.viewDirEnv = mul((float3x3)_EnvMatrix, WorldSpaceViewDir(v.vertex));
@@ -36,9 +36,9 @@ void PixShader(Input input, inout SurfaceOutput o)
 	float2 pixelSize = float2(ddx(input.uv_MainTex.y), ddy(input.uv_MainTex.y));
 	pixelSize *= _TextureWidth * .75;
 	float scale = rsqrt(dot(pixelSize, pixelSize)) * _GradientScale * (_Sharpness + 1);
-#else
+else
 	float scale = input.param.y;
-#endif
+
 
 	// Signed distance
 	float c = tex2D(_MainTex, input.uv_MainTex).a;
@@ -76,10 +76,10 @@ void PixShader(Input input, inout SurfaceOutput o)
 	// Cubemap reflection
 	fixed4 reflcol = texCUBE(_Cube, reflect(input.viewDirEnv, mul((float3x3)unity_ObjectToWorld, n)));
 	float3 emission = reflcol.rgb * lerp(_ReflectFaceColor.rgb, _ReflectOutlineColor.rgb, saturate(sd + outline * 0.5)) * faceColor.a;
-#else
+else
 	float3 n = float3(0, 0, -1);
 	float3 emission = float3(0, 0, 0);
-#endif
+
 
 #if GLOW_ON
 	float4 glowColor = GetGlowColor(sd, scale);
@@ -87,7 +87,7 @@ void PixShader(Input input, inout SurfaceOutput o)
 	emission += glowColor.rgb*glowColor.a;
 	faceColor = BlendARGB(glowColor, faceColor);
 	faceColor.rgb /= max(faceColor.a, 0.0001);
-#endif
+
 
 	// Set Standard output structure
 	o.Albedo = faceColor.rgb;
