@@ -13,6 +13,7 @@ TagManager:
   - wall
   - floor
   - Portal Camera
+  - Soul
   layers:
   - Default
   - TransparentFX

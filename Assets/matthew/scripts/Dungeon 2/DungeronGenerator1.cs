@@ -102,7 +102,10 @@ public class DungeronGenerator1 : MonoBehaviour
             newRoom.transform.position = spawnPoint;
             if(roomsIntersecting == true)
             {
-                DestroyImmediate(newRoom);
+
+                Destroy(newRoom);
+
+
                 roomsIntersecting = false;
             }
             else
@@ -161,8 +164,10 @@ public class DungeronGenerator1 : MonoBehaviour
                 allDoors.Remove(door);
                 allDoors.Remove(nextDoor);
 
-                DestroyImmediate(door);
-                DestroyImmediate(nextDoor);
+                
+
+                    Destroy(door);
+                    Destroy(nextDoor);
             }
         }
 
@@ -356,11 +361,16 @@ public class DungeronGenerator1 : MonoBehaviour
 
         for (int i = 0; i < childedRooms; i++)
         {
-            DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+
+            Destroy(roomParent.transform.GetChild(0).gameObject);
+
         }
         for (int i = 0; i < allDoors; i++)
         {
-            DestroyImmediate(hallwayParent.transform.GetChild(0).gameObject);
+
+            Destroy(hallwayParent.transform.GetChild(0).gameObject);
+
+
         }
     }
 

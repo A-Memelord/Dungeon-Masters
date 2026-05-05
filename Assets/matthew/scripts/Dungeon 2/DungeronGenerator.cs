@@ -80,7 +80,9 @@ public class DungeronGenerator : MonoBehaviour
 
             if (maxPositionCheckCount <= 536)
             {
-                DestroyImmediate(newRoom);
+                Destroy(newRoom);
+
+
                 maxPositionCheckCount = 1500;
             }
             else
@@ -113,7 +115,8 @@ public class DungeronGenerator : MonoBehaviour
         
         for (int i = 0; i < childedRooms; i++)
         {
-            DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+            Destroy(roomParent.transform.GetChild(0).gameObject);
+
         }
     }
 

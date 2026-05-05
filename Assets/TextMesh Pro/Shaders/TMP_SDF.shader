@@ -151,7 +151,7 @@ SubShader {
 		    #if (UNDERLAY_ON || UNDERLAY_INNER)
 			float4	texcoord2		: TEXCOORD4;		// u,v, scale, bias
 			fixed4	underlayColor	: COLOR1;
-		    #endif
+		    
 
 		    float4 textures			: TEXCOORD5;
 		};
@@ -195,7 +195,7 @@ SubShader {
 
 		    #if GLOW_ON
 			alphaClip = min(alphaClip, 1.0 - _GlowOffset * _ScaleRatioB - _GlowOuter * _ScaleRatioB);
-		    #endif
+		    
 
 			alphaClip = alphaClip / 2.0 - ( .5 / scale) - weight;
 
@@ -210,7 +210,7 @@ SubShader {
 			float x = -(_UnderlayOffsetX * _ScaleRatioC) * _GradientScale / _TextureWidth;
 			float y = -(_UnderlayOffsetY * _ScaleRatioC) * _GradientScale / _TextureHeight;
 			float2 bOffset = float2(x, y);
-		    #endif
+		    
 
 			// Generate UV for the Masking Texture
 			float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
@@ -236,7 +236,7 @@ SubShader {
 			#if (UNDERLAY_ON || UNDERLAY_INNER)
 			output.texcoord2 = float4(input.texcoord0 + bOffset, bScale, bBias);
 			output.underlayColor =	underlayColor;
-			#endif
+			
 			output.textures = float4(faceUV, outlineUV);
 
 			return output;
@@ -251,7 +251,7 @@ SubShader {
 
 		    #ifndef UNDERLAY_ON
 			clip(c - input.param.x);
-		    #endif
+		    
 
 			float	scale	= input.param.y;
 			float	bias	= input.param.z;
@@ -288,32 +288,32 @@ SubShader {
 
 			fixed4 reflcol = texCUBE(_Cube, reflect(input.viewDir, -n));
 			faceColor.rgb += reflcol.rgb * lerp(_ReflectFaceColor.rgb, _ReflectOutlineColor.rgb, saturate(sd + outline * 0.5)) * faceColor.a;
-		    #endif
+		    
 
 		    #if UNDERLAY_ON
 			float d = tex2D(_MainTex, input.texcoord2.xy).a * input.texcoord2.z;
 			faceColor += input.underlayColor * saturate(d - input.texcoord2.w) * (1 - faceColor.a);
-		    #endif
+		    
 
 		    #if UNDERLAY_INNER
 			float d = tex2D(_MainTex, input.texcoord2.xy).a * input.texcoord2.z;
 			faceColor += input.underlayColor * (1 - saturate(d - input.texcoord2.w)) * saturate(1 - sd) * (1 - faceColor.a);
-		    #endif
+		    
 
 		    #if GLOW_ON
 			float4 glowColor = GetGlowColor(sd, scale);
 			faceColor.rgb += glowColor.rgb * glowColor.a;
-		    #endif
+		    
 
 		// Alternative implementation to UnityGet2DClipping with support for softness.
 		    #if UNITY_UI_CLIP_RECT
 			half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(input.mask.xy)) * input.mask.zw);
 			faceColor *= m.x * m.y;
-		    #endif
+		    
 
 		    #if UNITY_UI_ALPHACLIP
 			clip(faceColor.a - 0.001);
-		    #endif
+		    
 
   		    return faceColor * input.color.a;
 		}

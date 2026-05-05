@@ -115,7 +115,7 @@ SubShader {
 			#if (UNDERLAY_ON | UNDERLAY_INNER)
 			float4	texcoord1		: TEXCOORD3;			// Texture UV, alpha, reserved
 			half2	underlayParam	: TEXCOORD4;			// Scale(x), Bias(y)
-			#endif
+			
 		};
 
 		float _UIMaskSoftnessX;
@@ -161,7 +161,7 @@ SubShader {
             float opacity = input.color.a;
 			#if (UNDERLAY_ON | UNDERLAY_INNER)
 			opacity = 1.0;
-			#endif
+			
 
 			fixed4 faceColor = fixed4(input.color.rgb, opacity) * _FaceColor;
 			faceColor.rgb *= faceColor.a;
@@ -178,7 +178,7 @@ SubShader {
 			float x = -(_UnderlayOffsetX * _ScaleRatioC) * _GradientScale / _TextureWidth;
 			float y = -(_UnderlayOffsetY * _ScaleRatioC) * _GradientScale / _TextureHeight;
 			float2 layerOffset = float2(x, y);
-			#endif
+			
 
 			// Generate UV for the Masking Texture
 			float4 clampedRect = clamp(_ClipRect, -2e10, 2e10);
@@ -196,7 +196,7 @@ SubShader {
 			#if (UNDERLAY_ON || UNDERLAY_INNER)
 			output.texcoord1 = float4(input.texcoord0 + layerOffset, input.color.a, 0);
 			output.underlayParam = half2(layerScale, layerBias);
-			#endif
+			
 
 			return output;
 		}
@@ -213,32 +213,32 @@ SubShader {
 			#ifdef OUTLINE_ON
 			c = lerp(input.outlineColor, input.faceColor, saturate(d - input.param.z));
 			c *= saturate(d - input.param.y);
-			#endif
+			
 
 			#if UNDERLAY_ON
 			d = tex2D(_MainTex, input.texcoord1.xy).a * input.underlayParam.x;
 			c += float4(_UnderlayColor.rgb * _UnderlayColor.a, _UnderlayColor.a) * saturate(d - input.underlayParam.y) * (1 - c.a);
-			#endif
+			
 
 			#if UNDERLAY_INNER
 			half sd = saturate(d - input.param.z);
 			d = tex2D(_MainTex, input.texcoord1.xy).a * input.underlayParam.x;
 			c += float4(_UnderlayColor.rgb * _UnderlayColor.a, _UnderlayColor.a) * (1 - saturate(d - input.underlayParam.y)) * sd * (1 - c.a);
-			#endif
+			
 
 			// Alternative implementation to UnityGet2DClipping with support for softness.
 			#if UNITY_UI_CLIP_RECT
 			half2 m = saturate((_ClipRect.zw - _ClipRect.xy - abs(input.mask.xy)) * input.mask.zw);
 			c *= m.x * m.y;
-			#endif
+			
 
 			#if (UNDERLAY_ON | UNDERLAY_INNER)
 			c *= input.texcoord1.z;
-			#endif
+			
 
 			#if UNITY_UI_ALPHACLIP
 			clip(c.a - 0.001);
-			#endif
+			
 
 			return c;
 		}
