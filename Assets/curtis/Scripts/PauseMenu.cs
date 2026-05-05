@@ -16,6 +16,7 @@ public class PauseMenu : MonoBehaviour
             container.SetActive(true);
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -23,6 +24,8 @@ public class PauseMenu : MonoBehaviour
     {
         container.SetActive(false);
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
 
