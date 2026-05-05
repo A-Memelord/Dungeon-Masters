@@ -7,11 +7,11 @@ public class SpawnEnemies : MonoBehaviour
     public GameObject[] enemies;
 
 
-    GameObject GetRandomEnemie(GameObject enemies)
+    GameObject GetRandomEnemie()
     {
-        int randomIndex = Random.Range(0, region.rooms.Length);
+        int randomIndex = Random.Range(0, enemies.Length);
 
-        return region.rooms[randomIndex];
+        return enemies[randomIndex];
     }
 
     Vector3 GetRandomPosition(Bounds enemySpawnArea, Vector3 size)
@@ -24,9 +24,23 @@ public class SpawnEnemies : MonoBehaviour
         return position;
     }
 
+    public void SpawnEnemie()
+    {
+        GameObject newEnemie = Instantiate(GetRandomEnemie(), Vector3.zero, Quaternion.identity);
+
+        if (newEnemie.TryGetComponent(out BoxCollider box))
+        {
+            Vector3 spawnPoint = GetRandomPosition(enemySpawnArea, box.bounds.size);
+            newEnemie.transform.position = spawnPoint;
+        }
+    }
+
     public void SpawnAllEnemies()
     {
-
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            SpawnEnemie();
+        }
     }
 
 
