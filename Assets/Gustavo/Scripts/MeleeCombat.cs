@@ -14,7 +14,7 @@ public class MeleeCombat : MonoBehaviour
   
     public float attackCooldown = 0.5f;
 
-   
+    public float delaySeconds = 0.8f;
     public int rayCount = 5;
     
     public float spreadAngle = 20f;
@@ -84,6 +84,8 @@ public class MeleeCombat : MonoBehaviour
 
         // collect processed colliders to avoid double-damage
         var damaged = new HashSet<Collider>();
+
+        yield return new WaitForSeconds(delaySeconds);
 
         if (rayCount <= 1)
         {

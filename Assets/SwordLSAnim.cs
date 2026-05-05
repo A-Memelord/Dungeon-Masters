@@ -1,14 +1,12 @@
 using UnityEngine;
 
-public class SwordAnim : MonoBehaviour
+public class SwordLSAnim : MonoBehaviour
 {
 
     private Animator anim;
     private bool isAttacking = false;
-    private float attackTimer = 0f; 
     public GameObject[] SwordVariant;
     public GameObject[] swordBase;
-    [SerializeField] private string attackStateName = "Attack";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,18 +17,7 @@ public class SwordAnim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (attackTimer > 0f)
-        {
-            attackTimer -= Time.deltaTime;
-            if (attackTimer <= 0f)
-            {
-                isAttacking = false;
-                UpdateSwordVisibility();
-            }
-        }
-
-        
-        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        if (Input.GetMouseButtonDown(0))
         {
 
             PlayAttack();
@@ -45,18 +32,6 @@ public class SwordAnim : MonoBehaviour
             // Reset trigger to avoid stacking
             anim.ResetTrigger("Attacking");
             anim.SetTrigger("Attacking");
-
-            float clipLength = GetAnimationClipLength(attackStateName);
-            if(clipLength > 0f)
-            {
-                attackTimer = clipLength;
-            }
-            else
-            {
-                attackTimer = 0.5f;
-            }
-        
-            isAttacking = true;
         }
     }
 
@@ -90,19 +65,5 @@ public class SwordAnim : MonoBehaviour
         {
             sword.SetActive(System.Array.Exists(activeSwords, s => s == sword));
         }
-    }
-    private float GetAnimationClipLength(string clipName)
-    {
-        if (anim.runtimeAnimatorController != null)
-        {
-            foreach (var clip in anim.runtimeAnimatorController.animationClips)
-            {
-                if (clip.name == clipName)
-                {
-                    return clip.length;
-                }
-            }
-        }
-        return 0f;
     }
 }
