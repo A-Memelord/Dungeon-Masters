@@ -165,14 +165,6 @@ public class DungeronGenerator2 : MonoBehaviour
 
             }
         }
-
-        // Teleport the player to the start room.
-        float playerSpawnPointX = startRoom.transform.position.x;
-        float playerSpawnPointY = startRoom.transform.position.y;
-        float playerSpawnPointZ = startRoom.transform.position.z;
-
-        Vector3 playerSpawnPoint = new(playerSpawnPointX, playerSpawnPointY + 1.1f, playerSpawnPointZ);
-        player.transform.position = playerSpawnPoint;
     }
 
     private void CreateCorridor(Door doorA, Door doorB)

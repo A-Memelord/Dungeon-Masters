@@ -12,4 +12,10 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private void Update()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }
