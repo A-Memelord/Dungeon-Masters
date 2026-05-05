@@ -7,12 +7,12 @@ public class SpawnEnemies : MonoBehaviour
     public GameObject[] enemies;
 
 
-    GameObject GetRandomEnemie(GameObject enemies)
-    {
-        int randomIndex = Random.Range(0, region.rooms.Length);
+    //GameObject GetRandomEnemie(GameObject enemies)
+    //{
+    //    int randomIndex = Random.Range(0, region.rooms.Length);
 
-        return region.rooms[randomIndex];
-    }
+    //    return region.rooms[randomIndex];
+    //}
 
     Vector3 GetRandomPosition(Bounds enemySpawnArea, Vector3 size)
     {
