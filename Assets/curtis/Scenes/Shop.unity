@@ -652,8 +652,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Souls: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7e5f11bb4f6b1cb4c951d1d2fb9675a6, type: 2}
-  m_sharedMaterial: {fileID: -3917312652384673937, guid: 7e5f11bb4f6b1cb4c951d1d2fb9675a6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1539,6 +1539,37 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1599218535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1599218536}
+  m_Layer: 0
+  m_Name: ShopBuyHehhehee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1599218536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599218535}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.023239689, y: 1.6914419, z: 0.5285612}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1654226625
 GameObject:
   m_ObjectHideFlags: 0
@@ -9615,3 +9646,4 @@ SceneRoots:
   - {fileID: 1213266472}
   - {fileID: 173546447428416255}
   - {fileID: 50051290}
+  - {fileID: 1599218536}
