@@ -29,6 +29,11 @@ public class DungeronGenerator2 : MonoBehaviour
     public Material lineMat;
     private List<Bounds> _allBounds = new();
 
+    void Start()
+    {
+        dungeonLayer = 1;
+    }
+
     // gets random room in regions
     GameObject GetRandomRoom(Region region)
     {
@@ -262,17 +267,14 @@ public class DungeronGenerator2 : MonoBehaviour
     // Destroys entire dungeon
     public void ClearRooms()
     {
-        int childedRooms = roomParent.transform.childCount;
         _allBounds.Clear();
         int allDoors = hallwayParent.transform.childCount;
         
-
-        for (int i = 0; i < childedRooms; i++)
+        foreach(Transform child in roomParent.transform)
         {
-
-            Destroy(roomParent.transform.GetChild(0).gameObject);
-
+            Destroy(child.gameObject);
         }
+
         for (int i = 0; i < allDoors; i++)
         {
 
@@ -283,7 +285,9 @@ public class DungeronGenerator2 : MonoBehaviour
 
     public void GenNextDungeon()
     {
-        SpawnAllRooms();
+        SpawnAllRooms(); 
+        dungeonLayer++;
+        Debug.Log(dungeonLayer);
     }
 
     private void OnDrawGizmos()

@@ -3,6 +3,8 @@ using UnityEngine;
 public class NextDungeon : MonoBehaviour
 {
     public DungeronGenerator2 dunGen;
+    bool hasTriggered = false;
+
     private void Start()
     {
         dunGen = FindFirstObjectByType<DungeronGenerator2>();
@@ -10,10 +12,16 @@ public class NextDungeon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!hasTriggered) 
+        {
         Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         dunGen.GenNextDungeon();
-
-        Destroy(gameObject);
+        hasTriggered = true;
+        }
+        if (!hasTriggered)
+        {
+            hasTriggered = false; 
+        }
 
     }
 }
