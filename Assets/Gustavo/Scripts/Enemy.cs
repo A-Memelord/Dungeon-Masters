@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour, IEffectable
     private StatusEffectData _data;
 
     // stun state
-    private float _stunEndTime = 0f;
+    private float _stunEndTime = 2f;
     public bool IsStunned => Time.time < _stunEndTime;
 
     public void ApplyEffect(StatusEffectData _data)

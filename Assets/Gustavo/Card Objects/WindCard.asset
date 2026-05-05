@@ -23,8 +23,8 @@ MonoBehaviour:
   statusEffect: {fileID: 0}
   projectilePrefab: {fileID: 4403830319394932542, guid: 5909e3107a93bb249bd4223c005f03d8, type: 3}
   projectileSpeed: 12
-  projectileLifetime: 5
-  damage: 0
+  projectileLifetime: 3.5
+  damage: 20
   pushForce: 6
   stunDuration: 1.5
   firePointName: FirePoint

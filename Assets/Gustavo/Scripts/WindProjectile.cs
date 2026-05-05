@@ -56,7 +56,7 @@ public class WindProjectile : MonoBehaviour
             _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
 
-        // Ignore collisions with the owner so the wall won't hit the player
+        
         if (_owner != null && _coll != null)
         {
             _ownerColliders = _owner.GetComponentsInChildren<Collider>();
@@ -137,7 +137,7 @@ public class WindProjectile : MonoBehaviour
             return;
         }
 
-        // Any non-enemy hit (e.g. walls, scenery) should destroy the wind wall
+       
         Destroy(gameObject);
     }
 }

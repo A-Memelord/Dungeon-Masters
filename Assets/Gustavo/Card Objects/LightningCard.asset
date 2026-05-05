@@ -21,11 +21,9 @@ MonoBehaviour:
   sprite: {fileID: 71714555, guid: 73af601f5469f264ba9f789fe65d964d, type: 3}
   animatorController: {fileID: 9100000, guid: d46e9a8b0d93eb04b9d45e77d35bceb8, type: 2}
   statusEffect: {fileID: 0}
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 18
+  projectilePrefab: {fileID: 5429815002890014325, guid: 42b5eb36e7508984997827f00ecb2694, type: 3}
+  projectileSpeed: 17
   projectileLifetime: 4
-  damage: 40
-  stunDuration: 2
-  indicatorPrefab: {fileID: 0}
-  aimMaxDistance: 50
+  damage: 30
+  zapEffect: {fileID: 0}
   firePointName: FirePoint

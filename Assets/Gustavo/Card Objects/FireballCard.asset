@@ -22,8 +22,8 @@ MonoBehaviour:
   animatorController: {fileID: 9100000, guid: b9cb8aec31039e046b7e735cca87e6d0, type: 2}
   statusEffect: {fileID: 0}
   projectilePrefab: {fileID: 5429815002890014325, guid: 9fac0e7d2d9612e4991f561e171a8822, type: 3}
-  projectileSpeed: 12
+  projectileSpeed: 13
   projectileLifetime: 5
-  damage: 25
+  damage: 40
   burnEffect: {fileID: 11400000, guid: c54f0e4a81710744490647f202055dc5, type: 2}
   firePointName: FirePoint

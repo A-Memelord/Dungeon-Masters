@@ -4,18 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(Collider), typeof(Rigidbody))]
 public class LightningProjectile : MonoBehaviour
 {
-    private float _speed = 15f;
-    private float _damage = 15f;
-    private float _lifetime = 4f;
-    private float _stunDuration = 1.5f;
+    private float _speed = 10f;
+    private float _damage = 10f;
+    private float _lifetime = 5f;
+    private StatusEffectData _statusEffect;
     private GameObject _owner;
     private float _spawnTime;
     private Collider _coll;
     private Rigidbody _rb;
     private Collider[] _ownerColliders;
 
-    // piercing state (can be adjusted if desired)
-    private int _pierceRemaining = 1;
+    // piercing state
+    private int _pierceRemaining = 3;
     private HashSet<int> _hitIds = new HashSet<int>();
 
     private void Awake()
@@ -23,6 +23,7 @@ public class LightningProjectile : MonoBehaviour
         _coll = GetComponent<Collider>();
         _rb = GetComponent<Rigidbody>();
 
+        // projectile should use physics for reliable trigger callbacks
         if (_rb != null)
         {
             _rb.useGravity = false;
@@ -33,19 +34,21 @@ public class LightningProjectile : MonoBehaviour
         if (_coll != null) _coll.isTrigger = true;
     }
 
-    // Initialize with stunDuration added
-    public void Initialize(float damage, float speed, float lifetime, float stunDuration, GameObject owner = null, int pierceCount = 1)
+    // Added optional pierceCount (defaults to 3)
+    public void Initialize(float damage, float speed, float lifetime, StatusEffectData statusEffect, GameObject owner = null, int pierceCount = 3)
     {
         _damage = damage;
         _speed = speed;
         _lifetime = lifetime;
-        _stunDuration = stunDuration;
+        _statusEffect = statusEffect;
         _owner = owner;
         _spawnTime = Time.time;
 
+        // initialize pierce state
         _pierceRemaining = Mathf.Max(0, pierceCount);
         _hitIds.Clear();
 
+        // ensure components exist (Initialize may be called before Awake if prefab instantiated inactive)
         if (_coll == null) _coll = GetComponent<Collider>();
         if (_rb == null) _rb = GetComponent<Rigidbody>();
         if (_coll != null) _coll.isTrigger = true;
@@ -56,6 +59,7 @@ public class LightningProjectile : MonoBehaviour
             _rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         }
 
+        // Ignore collisions with the owner so the projectile won't hit the player
         if (_owner != null && _coll != null)
         {
             _ownerColliders = _owner.GetComponentsInChildren<Collider>();
@@ -66,9 +70,9 @@ public class LightningProjectile : MonoBehaviour
             }
         }
 
+        // set initial velocity using Rigidbody (reliable for triggers)
         if (_rb != null)
         {
-            // keep the style consistent with existing projectile code in the project
             _rb.linearVelocity = transform.forward * _speed;
         }
     }
@@ -96,6 +100,28 @@ public class LightningProjectile : MonoBehaviour
             if (_hitIds.Contains(id)) return;
 
             health.TakeDamage(_damage);
+            if (_statusEffect != null) health.ApplyEffect(_statusEffect);
+
+            _hitIds.Add(id);
+            _pierceRemaining--;
+
+            if (_pierceRemaining <= 0)
+            {
+                Destroy(gameObject);
+            }
+
+            // pierced through this damageable target — keep going if pierce remaining > 0
+            return;
+        }
+
+        var enemy = other.GetComponentInParent<Health>();
+        if (enemy != null)
+        {
+            int id = enemy.gameObject.GetInstanceID();
+            if (_hitIds.Contains(id)) return;
+
+            enemy.TakeDamage(_damage);
+            if (_statusEffect != null) enemy.ApplyEffect(_statusEffect);
 
             _hitIds.Add(id);
             _pierceRemaining--;
@@ -107,28 +133,6 @@ public class LightningProjectile : MonoBehaviour
 
             return;
         }
-
-        //var enemy = other.GetComponentInParent<Enemy>();
-        //if (enemy != null)
-        //{
-        //    int id = enemy.gameObject.GetInstanceID();
-        //    if (_hitIds.Contains(id)) return;
-
-        //    enemy.health -= _damage;
-
-        //    // apply stun if available
-        //    enemy.Stun(_stunDuration);
-
-        //    _hitIds.Add(id);
-        //    _pierceRemaining--;
-
-        //    if (_pierceRemaining <= 0)
-        //    {
-        //        Destroy(gameObject);
-        //    }
-
-        //    return;
-        //}
 
         // Any hit that is not a damageable target (walls, scenery) destroys the projectile immediately
         Destroy(gameObject);

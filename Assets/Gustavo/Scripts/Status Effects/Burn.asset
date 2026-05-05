@@ -17,4 +17,4 @@ MonoBehaviour:
   TickSpeed: 1
   MovementBoost: 0
   Lifetime: 3
-  Effectparticles: {fileID: 0}
+  Effectparticles: {fileID: 222806352006804582, guid: c5369ae8a036c07438112537c7891fb5, type: 3}

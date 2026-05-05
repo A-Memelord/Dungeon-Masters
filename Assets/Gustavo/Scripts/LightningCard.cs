@@ -5,14 +5,12 @@ public class LightningCard : Card
 {
     [Header("Projectile")]
     public GameObject projectilePrefab;
-    public float projectileSpeed = 18f;
-    public float projectileLifetime = 4f;
-    public float damage = 20f;
-    public float stunDuration = 2f;
+    public float projectileSpeed = 12f;
+    public float projectileLifetime = 5f;
+    public float damage = 25f;
 
-    [Header("Aiming / Indicator")]
-    public GameObject indicatorPrefab;
-    public float aimMaxDistance = 50f;
+    [Header("Status Effect")]
+    public StatusEffectData zapEffect;
 
     [Header("Fire Point")]
     public string firePointName = "FirePoint"; // fallback name
@@ -23,7 +21,7 @@ public class LightningCard : Card
 
         if (projectilePrefab == null || user == null) return;
 
-        // Get firepoint (same logic as FireballCard)
+        // Try PlayerFirePoint component first
         Transform firePointTransform = null;
         var pfp = user.GetComponent<PlayerFirePoint>();
         if (pfp != null)
@@ -31,52 +29,54 @@ public class LightningCard : Card
             firePointTransform = pfp.GetFirePoint();
         }
 
+        // If still null, try to locate by name on the player
         if (firePointTransform == null)
         {
             var found = user.transform.Find(firePointName);
             if (found != null) firePointTransform = found;
         }
 
-        // Ensure camera reference (aimer will fall back to Camera.main)
+        // If still null, use camera, else user forward
         Camera cam = Camera.main ?? user.GetComponentInChildren<Camera>();
+        Vector3 aimOrigin;
+        Vector3 aimForward;
 
-        // Ensure an aimer exists on the player (or attach to camera if available)
-        LightningAimer aimer = null;
-        if (cam != null)
+        if (firePointTransform != null)
         {
-            aimer = cam.GetComponent<LightningAimer>();
-            if (aimer == null)
-                aimer = cam.gameObject.AddComponent<LightningAimer>();
+            aimOrigin = firePointTransform.position;
+            aimForward = firePointTransform.forward;
+        }
+        else if (cam != null)
+        {
+            aimOrigin = cam.transform.position;
+            aimForward = cam.transform.forward;
         }
         else
         {
-            aimer = user.GetComponentInChildren<LightningAimer>();
-            if (aimer == null)
-                aimer = user.AddComponent<LightningAimer>();
+            aimOrigin = user.transform.position + Vector3.up * 1.0f;
+            aimForward = user.transform.forward;
         }
 
-        // Begin aim: the aimer will show indicator and call back when player confirms.
-        aimer.BeginAim(user, indicatorPrefab, aimMaxDistance, (aimOrigin, aimDirection) =>
+        // spawn a little forward of the aim origin to avoid colliding with the player
+        Vector3 spawnPos = aimOrigin + aimForward.normalized * 0.6f;
+        Quaternion rot = Quaternion.LookRotation(aimForward.normalized, Vector3.up);
+
+        // instantiate inactive to allow Initialize to call Physics.IgnoreCollision before any trigger events
+        var projObj = Instantiate(projectilePrefab, spawnPos, rot);
+        projObj.SetActive(false);
+
+        var proj = projObj.GetComponent<LightningProjectile>();
+        if (proj != null)
         {
-            // Spawn projectile slightly forward of the aim origin to avoid hitting the user
-            Vector3 spawnPos = aimOrigin + aimDirection.normalized * 0.6f;
-            Quaternion rot = Quaternion.LookRotation(aimDirection.normalized, Vector3.up);
+            proj.Initialize(damage, projectileSpeed, projectileLifetime, zapEffect, user);
+        }
+        else
+        {
+            // fallback: ensure forward assigned
+            projObj.transform.forward = aimForward.normalized;
+        }
 
-            var projObj = Instantiate(projectilePrefab, spawnPos, rot);
-            projObj.SetActive(false);
-
-            var proj = projObj.GetComponent<LightningProjectile>();
-            if (proj != null)
-            {
-                proj.Initialize(damage, projectileSpeed, projectileLifetime, stunDuration, user);
-            }
-            else
-            {
-                // fallback: ensure forward assigned
-                projObj.transform.forward = aimDirection.normalized;
-            }
-
-            projObj.SetActive(true);
-        });
+        // now activate projectile so its Start/Awake run after collisions are safely ignored
+        projObj.SetActive(true);
     }
 }
