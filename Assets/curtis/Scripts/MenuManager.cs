@@ -3,6 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    private void OnTriggerEnter(Collider other)
+    {
+        SceneManager.LoadScene("Menu");
+    }
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

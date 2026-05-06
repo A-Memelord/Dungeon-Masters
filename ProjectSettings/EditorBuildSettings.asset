@@ -15,14 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Level.unity
     guid: 7b737db50d6c3c14e96557e9beaa473f
   - enabled: 1
-    path: Assets/matthew/scenes/Procedural dungeon 2.unity
-    guid: 7be56978ba99e2c49bbc7b8612b2bb9f
-  - enabled: 1
-    path: Assets/matthew/scenes/Procedural dungeon.unity
-    guid: d84ef2ccc7979a7429fd4a52bc15e5de
-  - enabled: 1
-    path: Assets/matthew/scenes/dungeon maze thing.unity
-    guid: 2675233b32a555d41a4d746c58c43313
+    path: Assets/Gustavo/TestCardArea.unity
+    guid: df4e13cca1182d348bbfca27ef01f500
   - enabled: 1
     path: Assets/matthew/scenes/Credits.unity
     guid: 13e7c55ebed255d40b22cb69cd04e1d7

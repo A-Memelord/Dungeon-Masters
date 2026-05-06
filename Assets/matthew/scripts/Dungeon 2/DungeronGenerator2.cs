@@ -102,8 +102,10 @@ public class DungeronGenerator2 : MonoBehaviour
             newRoom.transform.position = spawnPoint;
             if(roomsIntersecting == true)
             {
-                Destroy(newRoom);
-
+                if (newRoom != null)
+                {
+                   Destroy(newRoom); 
+                }
 
                 roomsIntersecting = false;
             }

@@ -14,6 +14,9 @@ TagManager:
   - floor
   - Portal Camera
   - Soul
+  - Spawn Point
+  - shopUI
+  - shopU Parent
   layers:
   - Default
   - TransparentFX

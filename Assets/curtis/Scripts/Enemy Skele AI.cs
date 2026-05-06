@@ -33,7 +33,7 @@ public class EnemySkeleAI : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("PlayerObj").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         collider = GetComponent<Collider>();
     }

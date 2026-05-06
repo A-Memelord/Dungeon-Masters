@@ -3,17 +3,24 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour, IInteractable
 {
+    public Transform uiHolder;
     public GameObject shopUI;
     public AudioSource shop;
     public AudioClip[] randomOpening;
     public AudioClip[] randomClosing;
     public Animator anim;
 
+    void Start()
+    {
+        uiHolder = GameObject.FindWithTag("shopUI").transform;
+        shopUI = uiHolder.transform.Find("Holder").gameObject;
+    }
     public void Interact()
     {
         if (shopUI == null)
-            return;
-
+        {
+            shopUI = GameObject.FindWithTag("shopUI");
+        }
         if (shopUI.activeSelf == false)
         {
             ActivateObject();

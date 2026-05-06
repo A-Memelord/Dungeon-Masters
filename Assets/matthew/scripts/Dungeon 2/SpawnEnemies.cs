@@ -2,17 +2,57 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject enemyParent;
+    public GameObject doorBlocker;
+    Collider pcol;
     public bool isCleared = false;
-    private Bounds enemySpawnArea;
+    public Bounds enemySpawnArea;
     public GameObject[] enemies;
+    private bool hasSpawnedEnemies = false;
+    public bool closedDoors = false;
 
+    void Update()
+    {
+        pcol = player.GetComponent<BoxCollider>();
+        if (pcol.bounds.Intersects(enemySpawnArea) && isCleared == false && hasSpawnedEnemies == false)
+        {
+            hasSpawnedEnemies = true;
+            closedDoors = true;
+            SpawnAllEnemies();
+        }
+        if (enemyParent.transform.childCount == 0 && hasSpawnedEnemies == true)
+        {
+            isCleared = true;
+        }
+        if (isCleared == true)
+        {
+            closedDoors = false;
+        }
+        if (closedDoors == true)
+        {
+            doorBlocker.SetActive(true);
+        }
+        else
+        {
+            doorBlocker.SetActive(false);
+        }
+    }
 
-    //GameObject GetRandomEnemie(GameObject enemies)
-    //{
-    //    int randomIndex = Random.Range(0, region.rooms.Length);
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        hasSpawnedEnemies = false;
+        enemySpawnArea.center = transform.position;
+        enemySpawnArea.center += new Vector3(0, 1, 0);
+    }
 
-    //    return region.rooms[randomIndex];
-    //}
+    GameObject GetRandomEnemie()
+    {
+        int randomIndex = Random.Range(0, enemies.Length);
+
+        return enemies[randomIndex];
+    }
 
     Vector3 GetRandomPosition(Bounds enemySpawnArea, Vector3 size)
     {
@@ -24,9 +64,26 @@ public class SpawnEnemies : MonoBehaviour
         return position;
     }
 
+    public void SpawnEnemie()
+    {
+        GameObject newEnemie = Instantiate(GetRandomEnemie(), Vector3.zero, Quaternion.identity);
+
+        if (newEnemie.TryGetComponent(out CapsuleCollider capsule))
+        {
+            Vector3 spawnPoint = GetRandomPosition(enemySpawnArea, capsule.bounds.size);
+            newEnemie.transform.position = spawnPoint;
+            newEnemie.transform.parent = enemyParent.transform;
+        }
+        
+    }
+
     public void SpawnAllEnemies()
     {
-
+        int enemieCount = Random.Range(2, 6);
+        for (int i = 0; i < enemieCount; i++)
+        {
+            SpawnEnemie();
+        }
     }
 
 
