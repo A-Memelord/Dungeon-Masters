@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3905386828948241169}
   - component: {fileID: 3241068927181570493}
   - component: {fileID: -159230081983807060}
+  - component: {fileID: 6524527936108576710}
   m_Layer: 0
   m_Name: real player
   m_TagString: Player
@@ -408,6 +409,7 @@ MonoBehaviour:
   attackDistance: 3
   attackDamage: 35
   attackCooldown: 0.8
+  delaySeconds: 0.8
   rayCount: 7
   spreadAngle: 20
   enemyLayer:
@@ -450,6 +452,27 @@ MonoBehaviour:
   resetVel: 1
   dashCd: 0
   dashKey: 101
+--- !u!65 &6524527936108576710
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5922575418213709123}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5972486185829194676
 GameObject:
   m_ObjectHideFlags: 0

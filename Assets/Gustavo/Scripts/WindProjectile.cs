@@ -133,11 +133,10 @@ public class WindProjectile : MonoBehaviour
             }
 
             _hitIds.Add(id);
-            // Do not destroy the wall — it should pass through and affect multiple targets
+            // Do not destroy the wall ï¿½ it should pass through and affect multiple targets
             return;
         }
 
        
-        Destroy(gameObject);
     }
 }

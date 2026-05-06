@@ -2,10 +2,50 @@ using UnityEngine;
 
 public class SpawnEnemies : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject enemyParent;
+    public GameObject doorBlocker;
+    Collider pcol;
     public bool isCleared = false;
-    private Bounds enemySpawnArea;
+    public Bounds enemySpawnArea;
     public GameObject[] enemies;
+    private bool hasSpawnedEnemies = false;
+    public bool closedDoors = false;
 
+    void Update()
+    {
+        pcol = player.GetComponent<BoxCollider>();
+        if (pcol.bounds.Intersects(enemySpawnArea) && isCleared == false && hasSpawnedEnemies == false)
+        {
+            hasSpawnedEnemies = true;
+            closedDoors = true;
+            SpawnAllEnemies();
+        }
+        if (enemyParent.transform.childCount == 0 && hasSpawnedEnemies == true)
+        {
+            isCleared = true;
+        }
+        if (isCleared == true)
+        {
+            closedDoors = false;
+        }
+        if (closedDoors == true)
+        {
+            doorBlocker.SetActive(true);
+        }
+        else
+        {
+            doorBlocker.SetActive(false);
+        }
+    }
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        hasSpawnedEnemies = false;
+        enemySpawnArea.center = transform.position;
+        enemySpawnArea.center += new Vector3(0, 1, 0);
+    }
 
     GameObject GetRandomEnemie()
     {
@@ -28,16 +68,19 @@ public class SpawnEnemies : MonoBehaviour
     {
         GameObject newEnemie = Instantiate(GetRandomEnemie(), Vector3.zero, Quaternion.identity);
 
-        if (newEnemie.TryGetComponent(out BoxCollider box))
+        if (newEnemie.TryGetComponent(out CapsuleCollider capsule))
         {
-            Vector3 spawnPoint = GetRandomPosition(enemySpawnArea, box.bounds.size);
+            Vector3 spawnPoint = GetRandomPosition(enemySpawnArea, capsule.bounds.size);
             newEnemie.transform.position = spawnPoint;
+            newEnemie.transform.parent = enemyParent.transform;
         }
+        
     }
 
     public void SpawnAllEnemies()
     {
-        for (int i = 0; i < enemies.Length; i++)
+        int enemieCount = Random.Range(2, 6);
+        for (int i = 0; i < enemieCount; i++)
         {
             SpawnEnemie();
         }

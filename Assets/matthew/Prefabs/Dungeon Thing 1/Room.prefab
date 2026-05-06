@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7287408744016267805}
   - component: {fileID: 1353985673823571737}
   - component: {fileID: 7680644980945118858}
+  - component: {fileID: 5407421718990552732}
   m_Layer: 0
   m_Name: Room
   m_TagString: room
@@ -34,6 +35,8 @@ Transform:
   - {fileID: 8157368823178088561}
   - {fileID: 1241481407394342877}
   - {fileID: 8101114716003406444}
+  - {fileID: 7263734004011513996}
+  - {fileID: 6081345387754735920}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1353985673823571737
@@ -69,6 +72,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc518beae8f473499f7098513c1cf42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5407421718990552732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385895054010542438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c3ddf4e20d17bf4e80d4ec9c59b74c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5922575418213709123, guid: ea7dc2901358f6a458cd581b0972fac8, type: 3}
+  enemyParent: {fileID: 7212777032319431714}
+  doorBlocker: {fileID: 6899587668793844307}
+  isCleared: 0
+  enemySpawnArea:
+    m_Center: {x: 0, y: 2, z: 0}
+    m_Extent: {x: 4.5, y: 0, z: 4.5}
+  enemies:
+  - {fileID: 2588421094682051021, guid: cbb62e5713da9df4ea05579ffcfaba13, type: 3}
+  - {fileID: 2474720557893925854, guid: 9e0b60d0bda6f06498be118a97e5816a, type: 3}
+  closedDoors: 0
 --- !u!1 &1894526937247935936
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +168,68 @@ Transform:
   - {fileID: 3260772560629696504}
   - {fileID: 8411056323682529558}
   - {fileID: 900935591688182770}
+  m_Father: {fileID: 7287408744016267805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6899587668793844307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6081345387754735920}
+  m_Layer: 0
+  m_Name: DoorBlockers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6081345387754735920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899587668793844307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7287408744016267805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7212777032319431714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7263734004011513996}
+  m_Layer: 0
+  m_Name: enemyParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7263734004011513996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212777032319431714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 7287408744016267805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7939182010615139610
@@ -806,7 +894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7721807079906520157, guid: fbc5f06d9ba2e794eb7f4623171e7df6, type: 3}
       propertyPath: m_VersionIndex
-      value: 48
+      value: 63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1280,7 +1368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7721807079906520157, guid: fbc5f06d9ba2e794eb7f4623171e7df6, type: 3}
       propertyPath: m_VersionIndex
-      value: 48
+      value: 63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1449,7 +1537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7721807079906520157, guid: fbc5f06d9ba2e794eb7f4623171e7df6, type: 3}
       propertyPath: m_VersionIndex
-      value: 48
+      value: 63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1750,7 +1838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7721807079906520157, guid: fbc5f06d9ba2e794eb7f4623171e7df6, type: 3}
       propertyPath: m_VersionIndex
-      value: 48
+      value: 63
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

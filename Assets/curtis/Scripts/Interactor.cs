@@ -7,18 +7,22 @@ interface IInteractable
 }
 public class Interactor : MonoBehaviour
 {
+    private GameObject player;
     public Transform InteractorSource;
     public float InteractRange;
     public Shop shop;
 
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player");
+        InteractorSource = player.transform;
     }
 
 
     void Update()
     {
+        player = GameObject.FindWithTag("Player");
+        InteractorSource = player.transform;
         if (Input.GetKeyDown(KeyCode.E))
         {
             Ray r = new Ray(InteractorSource.position, InteractorSource.forward);

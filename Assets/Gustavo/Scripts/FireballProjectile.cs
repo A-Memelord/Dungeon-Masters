@@ -110,7 +110,7 @@ public class FireballProjectile : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            // pierced through this damageable target — keep going if pierce remaining > 0
+            // pierced through this damageable target ï¿½ keep going if pierce remaining > 0
             return;
         }
 
@@ -135,6 +135,5 @@ public class FireballProjectile : MonoBehaviour
         }
 
         // Any hit that is not a damageable target (walls, scenery) destroys the projectile immediately
-        Destroy(gameObject);
     }
 }
