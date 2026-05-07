@@ -10,8 +10,8 @@ public class WorldCard : MonoBehaviour
 
     void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = card.sprite;
-        GetComponent<Animator>().runtimeAnimatorController = card.animatorController;
+        //GetComponent<SpriteRenderer>().sprite = card.sprite;
+        //GetComponent<Animator>().runtimeAnimatorController = card.animatorController;
     }
 
     private void OnValidate()

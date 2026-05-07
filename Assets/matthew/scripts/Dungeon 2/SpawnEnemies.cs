@@ -72,7 +72,6 @@ public class SpawnEnemies : MonoBehaviour
         {
             Vector3 spawnPoint = GetRandomPosition(enemySpawnArea, capsule.bounds.size);
             newEnemie.transform.position = spawnPoint;
-            newEnemie.transform.parent = enemyParent.transform;
         }
         
     }
