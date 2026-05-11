@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NextDungeon : MonoBehaviour
 {
     public DungeronGenerator2 dunGen;
     bool hasTriggered = false;
+    public bool endDungeon = false;
 
     private void Start()
     {
@@ -12,16 +14,22 @@ public class NextDungeon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!hasTriggered) 
+        if (endDungeon == true)
         {
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        dunGen.GenNextDungeon();
-        hasTriggered = true;
+            SceneManager.LoadScene("Menu");
         }
-        if (!hasTriggered)
+        if (endDungeon == false)
         {
-            hasTriggered = false; 
+            if (!hasTriggered) 
+            {
+                Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                dunGen.GenNextDungeon();
+                hasTriggered = true;
+            }
+            if (!hasTriggered)
+            {
+                hasTriggered = false; 
+            }  
         }
-
     }
 }

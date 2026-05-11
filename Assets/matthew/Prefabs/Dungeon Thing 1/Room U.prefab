@@ -1698,11 +1698,19 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -4.545305
       objectReference: {fileID: 0}
+    - target: {fileID: 5050586656005938933, guid: f365df01144eb894996c69949ee56c7b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5175195564574190378, guid: f365df01144eb894996c69949ee56c7b, type: 3}
       propertyPath: m_Name
       value: Room U
       objectReference: {fileID: 0}
     - target: {fileID: 5175195564574190378, guid: f365df01144eb894996c69949ee56c7b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5268441069987405138, guid: f365df01144eb894996c69949ee56c7b, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1725,6 +1733,14 @@ PrefabInstance:
     - target: {fileID: 5746382402892615445, guid: f365df01144eb894996c69949ee56c7b, type: 3}
       propertyPath: m_Center.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6077619262358660809, guid: f365df01144eb894996c69949ee56c7b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6580322504543823214, guid: f365df01144eb894996c69949ee56c7b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7113390302408968401, guid: f365df01144eb894996c69949ee56c7b, type: 3}
       propertyPath: m_LocalPosition.z

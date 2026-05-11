@@ -3,15 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.UIElements;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class DungeronGenerator2 : MonoBehaviour
 {
+    public bool inInspector = true;
     public Region[] regions;
     public GameObject[] hallways;
 
@@ -26,11 +22,13 @@ public class DungeronGenerator2 : MonoBehaviour
     bool roomsIntersecting;
     public int dungeonLayer = 1;
 
+    
     public Material lineMat;
     private List<Bounds> _allBounds = new();
 
     void Start()
     {
+        inInspector = false;
         dungeonLayer = 1;
     }
 
@@ -104,7 +102,15 @@ public class DungeronGenerator2 : MonoBehaviour
             {
                 if (newRoom != null)
                 {
-                   Destroy(newRoom); 
+                    if(!inInspector)
+                    {
+                        Destroy(newRoom); 
+                    }
+                    else
+                    {
+                        DestroyImmediate(newRoom);
+                    }
+                    
                 }
 
                 roomsIntersecting = false;
@@ -157,43 +163,50 @@ public class DungeronGenerator2 : MonoBehaviour
                 if (nextDoor == null)
                     continue;
 
-                //CreateCorridor(door, nextDoor);
+                CreateCorridor(door, nextDoor);
 
                 allDoors.Remove(door);
                 allDoors.Remove(nextDoor);
 
-                Destroy(door);
-                Destroy(nextDoor);
-
+                if(!inInspector)
+                {
+                    Destroy(door);
+                    Destroy(nextDoor);
+                }
+                else
+                {
+                    DestroyImmediate(door);
+                    DestroyImmediate(nextDoor);
+                }
             }
         }
     }
 
     private void CreateCorridor(Door doorA, Door doorB)
     {
-        //GameObject line = new();
-        //LineRenderer lr = line.AddComponent<LineRenderer>();
-        //line.transform.SetParent(hallwayParent.transform);
+        GameObject line = new();
+        LineRenderer lr = line.AddComponent<LineRenderer>();
+        line.transform.SetParent(hallwayParent.transform);
 
         Vector3[] positions = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
             GenerateCornerCorridor(doorA, doorB) : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
             GenerateHorizontalCorridor(doorA, doorB) :
             GenerateVerticalCorridor(doorA, doorB);
-        
-        //lr.endColor = lr.startColor = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
-        //    Color.yellow : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
-        //    Color.red :
-        //    Color.blue;
-        //lr.material = lineMat;
 
-        //doorA.GetComponentInChildren<PortalTeleport>().linkedPortal = doorB.GetComponentInChildren<PortalTeleport>();
-        //doorA.GetComponentInChildren<PortalCamera>().otherPortal = doorB.GetComponentInChildren<PortalTeleport>().transform;
+        lr.endColor = lr.startColor = Mathf.Abs(Vector3.Dot(doorA.transform.forward, doorB.transform.forward)) < 0.1f ?
+            Color.yellow : Vector3.Angle(doorA.transform.right, Vector3.right) >= 10f ?
+            Color.red :
+            Color.blue;
+        lr.material = lineMat;
 
-        //doorB.GetComponentInChildren<PortalTeleport>().linkedPortal = doorA.GetComponentInChildren<PortalTeleport>();
-        //doorB.GetComponentInChildren<PortalCamera>().otherPortal = doorA.GetComponentInChildren<PortalTeleport>().transform;
+        doorA.GetComponentInChildren<PortalTeleport>().linkedPortal = doorB.GetComponentInChildren<PortalTeleport>();
+        doorA.GetComponentInChildren<PortalCamera>().otherPortal = doorB.GetComponentInChildren<PortalTeleport>().transform;
 
-    //    lr.positionCount = positions.Length;
-    //    lr.SetPositions(positions);
+        doorB.GetComponentInChildren<PortalTeleport>().linkedPortal = doorA.GetComponentInChildren<PortalTeleport>();
+        doorB.GetComponentInChildren<PortalCamera>().otherPortal = doorA.GetComponentInChildren<PortalTeleport>().transform;
+
+        lr.positionCount = positions.Length;
+        lr.SetPositions(positions);
     }
 
     private Vector3[] GenerateHorizontalCorridor(Door doorA, Door doorB)
@@ -262,18 +275,35 @@ public class DungeronGenerator2 : MonoBehaviour
     public void ClearRooms()
     {
         _allBounds.Clear();
+        int allRooms = roomParent.transform.childCount;
         int allDoors = hallwayParent.transform.childCount;
         
-        foreach(Transform child in roomParent.transform)
+        if (!inInspector)
         {
-            Destroy(child.gameObject);
+            foreach(Transform child in roomParent.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
+        if (inInspector)
+        {
+            for (int i = 0; i < allRooms; i++)
+            {
+                DestroyImmediate(roomParent.transform.GetChild(0).gameObject);
+            }
+        }
+
 
         for (int i = 0; i < allDoors; i++)
         {
-
-            Destroy(hallwayParent.transform.GetChild(0).gameObject);
-
+            if (!inInspector)
+            {
+                Destroy(hallwayParent.transform.GetChild(0).gameObject);
+            }
+            else
+            {
+                DestroyImmediate(hallwayParent.transform.GetChild(0).gameObject);
+            }
         }
     }
 
